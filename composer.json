@@ -1,0 +1,75 @@
+{
+    "require": {
+        "php": ">=5.3.0",
+        "zendframework/zendframework1": "~1.12",
+        "serbanghita/Mobile-Detect":"2.2",
+        "ezyang/htmlpurifier":"v4.5.0",
+        "evenement/evenement": "1.0.*",
+        "pimple/pimple": "1.*",
+        "united-prototype/php-ga":"*",
+        "imagine/imagine": "~0.5.0",
+        "doctrine/common": "2.4.*",
+        "doctrine/dbal": "2.4.*",
+        "doctrine/orm": "2.4.*",
+        "doctrine/migrations": "v1.0-ALPHA1",
+        "symfony/yaml": "2.3.*",
+        "symfony/console": "2.3.*",
+        "geometria-lab/rediska": ">=0.5.9",
+        "smarty/smarty": "dev-trunk"
+    },
+    "require-dev" : {
+        "phpunit/phpunit" : "3.7.*",
+        "phpunit/dbunit" : "1.3.*"
+    },
+
+    "repositories":[
+        {
+            "type":"package",
+            "package": {
+                "name": "serbanghita/Mobile-Detect",
+                "version": "2.2",
+                "source": {
+                    "type":"git",
+                    "url":"https://github.com/serbanghita/Mobile-Detect",
+                    "reference": "tags/2.2"
+                },
+                "autoload": {
+                    "classmap": ["Mobile_Detect.php"]
+                }
+            }
+        },
+        {
+            "type":"package",
+            "package": {
+                "name": "united-prototype/php-ga",
+                "description":"Server-Side Google Analytics PHP Client",
+                "homepage":"http://code.google.com/p/php-ga/",
+                "license" : "GNU Lesser GPL",
+                "version": "1.1.1",
+                "php":">=5.2.0",
+                "dist": {
+                    "type":"zip",
+                    "url":"http://php-ga.googlecode.com/files/php-ga-1.1.1.zip"
+                },
+                "autoload": {
+                    "classmap": ["/src/GoogleAnalytics/"]
+                }
+            }
+        }
+    ],
+
+    "minimum-stability": "stable",
+    "config": {
+        "vendor-dir": "./vendor"
+    },
+
+    "autoload": {
+        "psr-0": {
+            "Core": ["library/Core"]
+        },
+        "classmap": [
+        ],
+        "files": [
+        ]
+    }
+}
