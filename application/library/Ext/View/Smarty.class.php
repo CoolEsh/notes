@@ -339,6 +339,8 @@ class Ext_View_Smarty extends Zend_View_Abstract
         $this->_smarty->cache_dir = $this->_config['cache_dir'];
         $this->_smarty->left_delimiter = $this->_config['left_delimiter'];
         $this->_smarty->right_delimiter = $this->_config['right_delimiter'];
-        $this->assign('this', $this);
+        $this->assign( 'this', $this );
+        $this->assign( '_view', $this );
+        $this->assign( '_layout', $this->layout() );
     }
 }

@@ -1,14 +1,12 @@
 <?php
 
-
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * ReminderType
  *
  * @ORM\Table(name="reminder_type")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="ReminderClassRepository")
  */
 class ReminderType
 {
