@@ -1,6 +1,6 @@
 <?php
 
-class Application_Form_TextNote extends Zend_Form
+class Application_Form_TodoNote extends Zend_Form
 {
 
     /**
@@ -27,7 +27,7 @@ class Application_Form_TextNote extends Zend_Form
             ->removeDecorator( 'Label' )
             ->removeDecorator( 'Errors' );
 
-        $elements['content'] = new Zend_Form_Element_Textarea( 'content' );
+        $elements['content'] = new My_Form_Element_Todo( 'content[]' );
         $elements['content']->addFilter( 'StripTags' )
             ->setAttribs( array(
                 'id' => 'note-content',
@@ -53,6 +53,30 @@ class Application_Form_TextNote extends Zend_Form
             ->removeDecorator( 'Errors' );
 
         $this->setElements( $elements );
+    }
+
+    public function setTodos( $todos )
+    {
+        foreach ( $todos as $todo )
+        {
+            $todoElem = new My_Form_Element_Todo( 'content[]' );
+            $todoElem->addFilter( 'StripTags' )
+                ->setAttribs( array(
+                    'id' => 'note-content',
+                    'class' => 'form-control',
+                    'rows' => '6'
+                ) )
+                ->setRequired( true )
+                ->addValidator( 'NotEmpty', true, array(
+                    'messages'  => array(
+                        Zend_Validate_NotEmpty::IS_EMPTY => 'Message is required'
+                    )
+                ) )
+                ->removeDecorator( 'Label' )
+                ->removeDecorator( 'Errors' );
+
+            $this->addElement( $todoElem );
+        }
     }
 
 }

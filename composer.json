@@ -64,12 +64,14 @@
 
     "autoload": {
         "psr-0": {
-            "": [ "application/models/", "application/forms/" ]
+            "": [ "application/forms/", "application/models/", "application/library/My/" ]
         },
         "classmap": [ {
             "smarty": "application/library/Ext/View/Smarty.class.php"
         } ],
-        "files": [
-        ]
+        "files": [ {
+            "todoFormElement": "application/library/My/Form/Element/Todo.php",
+            "todoViewHelper": "application/library/My/View/Helper/Todo.php"
+        } ]
     }
 }
