@@ -1,16 +1,16 @@
 <?php
 
-
+namespace Entities;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ReminderText
+ * ReminderTodo
  *
- * @ORM\Table(name="reminder_text", indexes={@ORM\Index(name="reminder_text_reminder1", columns={"reminder_id"})})
+ * @ORM\Table(name="reminder_todo", indexes={@ORM\Index(name="reminder_todo_reminder1", columns={"reminder_id"})})
  * @ORM\Entity
  */
-class ReminderText
+class ReminderTodo
 {
     /**
      * @var integer
@@ -27,6 +27,13 @@ class ReminderText
      * @ORM\Column(name="content", type="text", nullable=true)
      */
     private $content;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="completed", type="boolean", nullable=false)
+     */
+    private $completed = '0';
 
     /**
      * @var \Reminder
@@ -54,7 +61,7 @@ class ReminderText
      * Set content
      *
      * @param string $content
-     * @return ReminderText
+     * @return ReminderTodo
      */
     public function setContent($content)
     {
@@ -74,10 +81,33 @@ class ReminderText
     }
 
     /**
+     * Set completed
+     *
+     * @param boolean $completed
+     * @return ReminderTodo
+     */
+    public function setCompleted($completed)
+    {
+        $this->completed = $completed;
+
+        return $this;
+    }
+
+    /**
+     * Get completed
+     *
+     * @return boolean 
+     */
+    public function getCompleted()
+    {
+        return $this->completed;
+    }
+
+    /**
      * Set reminder
      *
      * @param \Reminder $reminder
-     * @return ReminderText
+     * @return ReminderTodo
      */
     public function setReminder(\Reminder $reminder = null)
     {

@@ -63,7 +63,9 @@
     },
 
     "autoload": {
-        "psr-0": {},
+        "psr-0": {
+            "": [ "application/models/", "application/forms/" ]
+        },
         "classmap": [ {
             "smarty": "application/library/Ext/View/Smarty.class.php"
         } ],

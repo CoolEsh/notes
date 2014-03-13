@@ -25,18 +25,18 @@ $application = new Zend_Application(
 
 $config = new \Doctrine\ORM\Configuration();
 
-$config->setProxyDir( __DIR__ . '/application/models/Proxy/' );
+$config->setProxyDir( __DIR__ . '/application/models/Proxies/' );
 $config->setProxyNamespace( 'Proxies' );
 
 AnnotationRegistry::registerFile( $vendor . 'doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php' );
 $reader = new AnnotationReader();
-$driverImpl = new \Doctrine\ORM\Mapping\Driver\AnnotationDriver( $reader, array( __DIR__ . "/../application/models/Entity/" ) );
+$driverImpl = new \Doctrine\ORM\Mapping\Driver\AnnotationDriver( $reader, array( __DIR__ . "/../application/models/Entities/" ) );
 $config->setMetadataDriverImpl( $driverImpl );
 
 $connectionOptions = array(
     'driver'   => 'pdo_mysql',
-    'user'     => 'andrew',
-    'password' => 'andrew',
+    'user'     => 'root',
+    'password' => 'root',
     'dbname'   => 'notes'
 );
 

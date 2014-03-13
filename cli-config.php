@@ -11,9 +11,9 @@ error_reporting(E_ALL);
 $classLoader = new \Doctrine\Common\ClassLoader('Doctrine');
 $classLoader->register();
 
-$classLoader = new \Doctrine\Common\ClassLoader('Entities', __DIR__ . '/application/models/Entity');
+$classLoader = new \Doctrine\Common\ClassLoader('Entities', __DIR__ . '/application/models/Entities');
 $classLoader->register();
-$classLoader = new \Doctrine\Common\ClassLoader('Proxies', __DIR__ . '/application/models/Proxy');
+$classLoader = new \Doctrine\Common\ClassLoader('Proxies', __DIR__ . '/application/models/Proxies');
 $classLoader->register();
 
 $config = new \Doctrine\ORM\Configuration();

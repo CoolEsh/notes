@@ -1,6 +1,6 @@
 <?php
 
-
+namespace Entities;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -29,19 +29,16 @@ class Reminder
     private $title;
 
     /**
-     * @var \ReminderType
+     * @var \string
      *
-     * @ORM\ManyToOne(targetEntity="ReminderType")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="type_id", referencedColumnName="id")
-     * })
+     * @ORM\Column(name="type", type="string", length=32, nullable=false)
      */
     private $type;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="reminder")
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="reminder",cascade={"persist"})
      * @ORM\JoinTable(name="reminder_tag",
      *   joinColumns={
      *     @ORM\JoinColumn(name="reminder_id", referencedColumnName="id")
@@ -98,10 +95,10 @@ class Reminder
     /**
      * Set type
      *
-     * @param \ReminderType $type
+     * @param string $type
      * @return Reminder
      */
-    public function setType(\ReminderType $type = null)
+    public function setType($type)
     {
         $this->type = $type;
 
@@ -111,7 +108,7 @@ class Reminder
     /**
      * Get type
      *
-     * @return \ReminderType 
+     * @return string
      */
     public function getType()
     {
@@ -124,7 +121,7 @@ class Reminder
      * @param \Tag $tag
      * @return Reminder
      */
-    public function addTag(\Tag $tag)
+    public function addTag($tag)
     {
         $this->tag[] = $tag;
 

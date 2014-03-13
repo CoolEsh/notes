@@ -40,13 +40,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $loader->register();
         $loader = new ClassLoader('Symfony', 'Doctrine');
         $loader->register();
-        $loader = new ClassLoader('Entity', APPLICATION_PATH . '/models');
+        $loader = new ClassLoader('Entities', APPLICATION_PATH . '/models');
         $loader->register();
     }
 
     public function _initDoctrineEntityManager()
     {
-        $this->bootstrap(array('classLoaders', 'doctrineCache'));
+        $this->bootstrap( array( 'classLoaders', 'doctrineCache' ) );
         $zendConfig = $this->getOptions();
 
         // parameters required for connecting to the database.
@@ -57,33 +57,33 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $configuration = new DoctrineConfiguration();
         // the metadata cache is used to avoid parsing all mapping information every time
         // the framework is initialized.
-        $configuration->setMetadataCacheImpl($this->getResource('doctrineCache'));
+        $configuration->setMetadataCacheImpl( $this->getResource( 'doctrineCache' ) );
         // for performance reasons, it is also recommended to use a result cache
-        $configuration->setResultCacheImpl($this->getResource('doctrineCache'));
+        $configuration->setResultCacheImpl( $this->getResource( 'doctrineCache' ) );
 
         // if you set this option to true, Doctrine 2 will generate proxy classes for your entities
         // on the fly. This has of course impact on the performance and should therefore be disabled
         // in the production environment
-        $configuration->setAutoGenerateProxyClasses($zendConfig['doctrine']['autoGenerateProxyClasses']);
+        $configuration->setAutoGenerateProxyClasses( $zendConfig['doctrine']['autoGenerateProxyClasses'] );
 
         // the directory, where your proxy classes live
-        $configuration->setProxyDir($zendConfig['doctrine']['proxyPath']);
+        $configuration->setProxyDir( $zendConfig['doctrine']['proxyPath'] );
         // the proxy classes' namespace
-        $configuration->setProxyNamespace($zendConfig['doctrine']['proxyNamespace']);
+        $configuration->setProxyNamespace( $zendConfig['doctrine']['proxyNamespace'] );
 
         // the next option tells doctrine which description language we want to use for the mapping
         // information
         $configuration->setMetadataDriverImpl(
-            $configuration->newDefaultAnnotationDriver(
-                $zendConfig['doctrine']['entityPath']));
+            $configuration->newDefaultAnnotationDriver( $zendConfig['doctrine']['entityPath'], false )
+        );
 
         // next, we create an event manager
         $eventManager = new DoctrineEventManager();
 
         // now we have everything required to initialize the entity manager
-        $entityManager = DoctrineEntityManager::create($connectionParameters, $configuration, $eventManager);
+        $entityManager = DoctrineEntityManager::create( $connectionParameters, $configuration, $eventManager );
 
-        Zend_Registry::set('em', $entityManager);
+        Zend_Registry::set( 'em', $entityManager );
 
         return $entityManager;
     }
