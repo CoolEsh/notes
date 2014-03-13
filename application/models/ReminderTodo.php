@@ -9,18 +9,29 @@ class Application_Model_ReminderTodo
     {
         $em = Zend_Registry::get( 'em' );
 
-        $reminder = new Entities\Reminder();
-        $reminder->setType( 'todo' );
-        $reminder->setTitle( $data['title'] );
+        $reminderObj = new Entities\Reminder();
+        $reminderObj->setType( 'todo' );
+        $reminderObj->setTitle( $data['title'] );
 
-        $em->persist( $reminder );
+        if ( !empty( $data['tags'] ) )
+        {
+            $tags = explode( ',', $data['tags'] );
+            foreach ( $tags as $tag )
+            {
+                $tagObj = new Entities\Tag();
+                $tagObj->setName( trim( $tag ) );
+                $reminderObj->addTag( $tagObj );
+            }
+        }
+
+        $em->persist( $reminderObj );
         $em->flush();
 
-        $reminderText = new Entities\ReminderTodo();
-        $reminderText->setContent( $data['content'] );
-        $reminderText->setReminder( $reminder );
+        $reminderTextObj = new Entities\ReminderTodo();
+        $reminderTextObj->setContent( $data['content'] );
+        $reminderTextObj->setReminder( $reminderObj );
 
-        $em->persist( $reminderText );
+        $em->persist( $reminderTextObj );
         $em->flush();
     }
 }
