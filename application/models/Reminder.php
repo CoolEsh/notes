@@ -7,7 +7,7 @@ use Entities\Reminder,
 
 class Application_Model_Reminder
 {
-    public function findAll()
+    public function findAllForPaging()
     {
         $em = Zend_Registry::get( 'em' );
 

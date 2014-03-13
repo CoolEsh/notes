@@ -9,9 +9,11 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         {$reminder->getTitle()}
-                        {if $reminder->tags}
-                            <div class="pull-right">Tags: {", "|implode:$reminder->tags}</div>
-                        {/if}
+                        <div class="pull-right">
+                            <a href="/note/update/id/{$reminder->getId()}"><i class="glyphicon glyphicon-edit"></i></a>
+                            &nbsp;
+                            <a href="/note/delete/id/{$reminder->getId()}"><i class="glyphicon glyphicon-trash"></i></a>
+                        </div>
                     </h3>
                 </div>
                 <div class="panel-body">
@@ -21,6 +23,11 @@
                         {foreach from=$reminder->content item=todo}
                             <input type="checkbox" class="form-control" {if ( intval( $todo.completed ) === 1 )}checked="checked"{/if} disabled="disabled" style="display:inline; vertical-align:bottom;" />&nbsp;{$todo.content}<br />
                         {/foreach}
+                    {/if}
+                </div>
+                <div class="panel-footer">
+                    {if $reminder->tags}
+                        Tags: {", "|implode:$reminder->tags}
                     {/if}
                 </div>
             </div>
