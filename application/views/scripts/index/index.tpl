@@ -1,5 +1,8 @@
 <div class="container">
     <h1>Homepage</h1>
+
+    {$paginator}
+
     {if ( count( $paginator ) )}
         {foreach from=$paginator item=reminder}
             <div class="panel panel-default">

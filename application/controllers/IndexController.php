@@ -14,7 +14,7 @@ class IndexController extends Zend_Controller_Action
         Zend_View_Helper_PaginationControl::setDefaultViewPartial( 'paginator-controls.tpl' );
 
         $paginator = Zend_Paginator::factory( $reminders );
-        $paginator->setItemCountPerPage( 2 );
+        $paginator->setItemCountPerPage( 3 );
         $paginator->setCurrentPageNumber( $this->view->page );
         $this->view->paginator = $paginator;
     }
