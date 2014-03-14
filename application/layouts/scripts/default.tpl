@@ -7,13 +7,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    {$this->headTitle()}
-    {$this->headMeta()}
-    {$this->headScript()}
-    {$this->headLink()}
-    {$this->headStyle()}
-
-    <link href="/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/jquery-ui.min.css" rel="stylesheet" />
+    <link href="/css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <style>
         body {
             padding-top: 50px;
@@ -21,8 +16,15 @@
     </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/scripts/main.js"></script>
+
+    {$this->headTitle()}
+    {$this->headMeta()}
+    {$this->headScript()}
+    {$this->headLink()}
+    {$this->headStyle()}
 </head>
 
 <body>

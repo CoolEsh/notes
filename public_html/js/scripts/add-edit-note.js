@@ -1,0 +1,3 @@
+$( function() {
+    $( "#note-tags" ).tagit();
+} );

@@ -9,6 +9,12 @@ class NoteController extends Zend_Controller_Action
     {
         $this->view->headTitle( 'Add text note' );
 
+        $layout = new Zend_Layout();
+        $layout->getView()->headScript()->appendFile( '/js/tag-it.min.js' );
+        $layout->getView()->headLink()->appendStylesheet( '/css/jquery.tagit.css' );
+
+        $layout->getView()->headScript()->appendFile( '/js/scripts/add-edit-note.js' );
+
         $form = new Application_Form_TextNote();
 
         if ( $this->getRequest()->isPost() )
