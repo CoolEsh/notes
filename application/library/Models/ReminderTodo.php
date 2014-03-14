@@ -1,10 +1,14 @@
 <?php
 
-use Entities\Reminder,
-    Entities\ReminderTodo;
+namespace Models;
 
-class Application_Model_ReminderTodo
+class ReminderTodo
 {
+    public function getForm()
+    {
+
+    }
+    
     public function save( $data )
     {
         $em = Zend_Registry::get( 'em' );

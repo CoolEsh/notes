@@ -1,6 +1,6 @@
 <?php
 
-namespace Entities;
+namespace Entities\Raw;
 
 use Doctrine\ORM\Mapping as ORM;
 

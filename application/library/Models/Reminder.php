@@ -1,11 +1,8 @@
 <?php
 
-use Entities\Reminder,
-    Entities\ReminderText,
-    Entities\ReminderTodo,
-    Entities\Tag;
+namespace Models;
 
-class Application_Model_Reminder
+class Reminder
 {
     public function findAllForPaging()
     {

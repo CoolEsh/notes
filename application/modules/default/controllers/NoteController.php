@@ -62,11 +62,15 @@ class NoteController extends Zend_Controller_Action
 
     public function updateTextAction()
     {
+        $id = ( int )$this->getRequest()->getParam( 'noteId', 0 );
+
         $this->view->headTitle( 'Edit text note' );
     }
 
     public function updateTodoAction()
     {
+        $id = ( int )$this->getRequest()->getParam( 'noteId', 0 );
+
         $this->view->headTitle( 'Edit to-do note' );
     }
 

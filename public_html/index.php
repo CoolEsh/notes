@@ -25,4 +25,8 @@ $application = new Zend_Application(
         'config' => APPLICATION_PATH . '/configs/application.ini'
     )
 );
+
+$resource = new \Ext\Application\Resource\Container( null, new Pimple );
+$application->getBootstrap()->registerPluginResource( $resource );
+
 $application->bootstrap()->run();

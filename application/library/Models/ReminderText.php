@@ -1,11 +1,14 @@
 <?php
 
-use Entities\Reminder,
-    Entities\ReminderText,
-    Entities\Tag;
+namespace Models;
 
-class Application_Model_ReminderText
+class ReminderText
 {
+    public function getForm()
+    {
+
+    }
+
     public function save( $data )
     {
         $em = Zend_Registry::get( 'em' );
