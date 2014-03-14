@@ -3,7 +3,6 @@
 error_reporting( E_ALL );
 
 defined( 'APPLICATION_ENV' ) || define( 'APPLICATION_ENV', ( getenv( 'APPLICATION_ENV' ) ? getenv( 'APPLICATION_ENV' ) : 'development' ) );
-define( 'DEFAULT_LANGUAGE', 'en' );
 
 define( 'ROOT_PATH', dirname( dirname( __FILE__ ) ) );
 define( 'APPLICATION_PATH', ROOT_PATH . '/application' );
