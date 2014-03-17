@@ -5,7 +5,7 @@ namespace Models;
 use Zend_Controller_Front,
     \Doctrine\ORM\Tools\Pagination\Paginator;
 
-class Reminder
+class Reminder extends ModelAbstract
 {
     private $_itemsPerPage = 3;
 
@@ -15,12 +15,7 @@ class Reminder
      */
     public function getPageRecords( $currentPage )
     {
-        $front = Zend_Controller_Front::getInstance();
-
-        $bootstrap = $front->getParam( 'bootstrap' );
-        $container = $bootstrap->getResource( 'container' );
-
-        $em = $container['entityManager'];
+        $em = $this->getEntityManager();
 
         $dql = "SELECT reminder FROM \Entities\Reminder reminder";
         $query = $em->createQuery( $dql );

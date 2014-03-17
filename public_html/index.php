@@ -1,6 +1,6 @@
 <?php
 
-error_reporting( E_ALL );
+error_reporting( -1 );
 
 defined( 'APPLICATION_ENV' ) || define( 'APPLICATION_ENV', ( getenv( 'APPLICATION_ENV' ) ? getenv( 'APPLICATION_ENV' ) : 'development' ) );
 

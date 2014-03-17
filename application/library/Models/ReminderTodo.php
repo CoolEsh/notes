@@ -2,7 +2,7 @@
 
 namespace Models;
 
-class ReminderTodo
+class ReminderTodo extends ModelAbstract
 {
     public function getForm()
     {
@@ -11,7 +11,7 @@ class ReminderTodo
     
     public function save( $data )
     {
-        $em = Zend_Registry::get( 'em' );
+        $em = $this->getEntityManager();
 
         $reminderObj = new \Entities\Reminder();
         $reminderObj->setType( 'todo' );

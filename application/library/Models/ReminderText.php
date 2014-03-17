@@ -2,7 +2,7 @@
 
 namespace Models;
 
-class ReminderText
+class ReminderText extends ModelAbstract
 {
     public function getForm()
     {
@@ -11,7 +11,7 @@ class ReminderText
 
     public function save( $data )
     {
-        $em = Zend_Registry::get( 'em' );
+        $em = $this->getEntityManager();
 
         $reminderObj = new \Entities\Reminder();
         $reminderObj->setType( 'text' );
