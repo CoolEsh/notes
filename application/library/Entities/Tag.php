@@ -1,15 +1,17 @@
 <?php
 
-namespace Entities\Raw;
+namespace Entities;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM,
+    Entities\Raw;
 
 /**
  * Tag
  *
- * @ORM\MappedSuperclass
+ * @ORM\Table(name="tag")
+ * @ORM\Entity
  */
-class Tag
+class Tag extends Entities\Raw\Tag
 {
     /**
      * @var integer
@@ -79,10 +81,10 @@ class Tag
     /**
      * Add reminder
      *
-     * @param \Entities\Reminder $reminder
+     * @param \Reminder $reminder
      * @return Tag
      */
-    public function addReminder(\Entities\Reminder $reminder)
+    public function addReminder(\Reminder $reminder)
     {
         $this->reminder[] = $reminder;
 
@@ -92,9 +94,9 @@ class Tag
     /**
      * Remove reminder
      *
-     * @param \Entities\Reminder $reminder
+     * @param \Reminder $reminder
      */
-    public function removeReminder(\Entities\Reminder $reminder)
+    public function removeReminder(\Reminder $reminder)
     {
         $this->reminder->removeElement($reminder);
     }

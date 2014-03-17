@@ -1,15 +1,17 @@
 <?php
 
-namespace Entities\Raw;
+namespace Entities;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM,
+    Entities\Raw;
 
 /**
- * ReminderText
+ * ReminderTodo
  *
- * @ORM\MappedSuperclass
+ * @ORM\Table(name="reminder_todo", indexes={@ORM\Index(name="reminder_todo_reminder1", columns={"reminder_id"})})
+ * @ORM\Entity
  */
-class ReminderText
+class ReminderTodo extends Entities\Raw\ReminderTodo
 {
     /**
      * @var integer
@@ -28,9 +30,16 @@ class ReminderText
     private $content;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="completed", type="boolean", nullable=false)
+     */
+    private $completed = '0';
+
+    /**
      * @var \Reminder
      *
-     * @ORM\ManyToOne(targetEntity="Reminder",cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Reminder")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="reminder_id", referencedColumnName="id")
      * })
@@ -53,7 +62,7 @@ class ReminderText
      * Set content
      *
      * @param string $content
-     * @return ReminderText
+     * @return ReminderTodo
      */
     public function setContent($content)
     {
@@ -73,12 +82,35 @@ class ReminderText
     }
 
     /**
+     * Set completed
+     *
+     * @param boolean $completed
+     * @return ReminderTodo
+     */
+    public function setCompleted($completed)
+    {
+        $this->completed = $completed;
+
+        return $this;
+    }
+
+    /**
+     * Get completed
+     *
+     * @return boolean 
+     */
+    public function getCompleted()
+    {
+        return $this->completed;
+    }
+
+    /**
      * Set reminder
      *
      * @param \Reminder $reminder
-     * @return ReminderText
+     * @return ReminderTodo
      */
-    public function setReminder($reminder = null)
+    public function setReminder(\Reminder $reminder = null)
     {
         $this->reminder = $reminder;
 

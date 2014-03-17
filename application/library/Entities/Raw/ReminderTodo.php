@@ -7,8 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ReminderTodo
  *
- * @ORM\Table(name="reminder_todo", indexes={@ORM\Index(name="reminder_todo_reminder1", columns={"reminder_id"})})
- * @ORM\Entity
+ * @ORM\MappedSuperclass
  */
 class ReminderTodo
 {
@@ -106,10 +105,10 @@ class ReminderTodo
     /**
      * Set reminder
      *
-     * @param \Reminder $reminder
+     * @param \Entities\Reminder $reminder
      * @return ReminderTodo
      */
-    public function setReminder(\Reminder $reminder = null)
+    public function setReminder(\Entities\Reminder $reminder = null)
     {
         $this->reminder = $reminder;
 
@@ -119,7 +118,7 @@ class ReminderTodo
     /**
      * Get reminder
      *
-     * @return \Reminder 
+     * @return \Entities\Reminder
      */
     public function getReminder()
     {
