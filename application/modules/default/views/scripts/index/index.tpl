@@ -1,50 +1,33 @@
 <div class="container">
     <h1>Homepage</h1>
 
-    {foreach from=$remindersList item=reminder}
-        {if ( $reminder->getType() === 'text' )}
-            {include file='./partials/text.tpl'}
-        {elseif ( $reminder->getType() === 'todo' )}
-            {include file='./partials/todo.tpl'}
-        {else}
+    {*{foreach from=$remindersList item=reminder}*}
+        {*{if ( $reminder->getType() === 'text' )}*}
+            {*{include file='./partials/text.tpl'}*}
+        {*{elseif ( $reminder->getType() === 'todo' )}*}
+            {*{include file='./partials/todo.tpl'}*}
+        {*{else}*}
 
-        {/if}
-    {/foreach}
+        {*{/if}*}
+    {*{/foreach}*}
 
 
-    {*{$paginator}*}
+    {include file='./partials/paginator-controls.tpl' currentPage=$remindersPaginator.current_page totalPages=$remindersPaginator.total_pages}
 
-    {*{if ( count( $paginator ) )}*}
-        {*{foreach from=$paginator item=reminder}*}
-            {*<div class="panel panel-default">*}
-                {*<div class="panel-heading">*}
-                    {*<h3 class="panel-title">*}
-                        {*{$reminder->getTitle()}*}
-                        {*<div class="pull-right">*}
-                            {*<a href="/note/update/id/{$reminder->getId()}"><i class="glyphicon glyphicon-edit"></i></a>*}
-                            {*&nbsp;*}
-                            {*<a href="/note/delete/id/{$reminder->getId()}"><i class="glyphicon glyphicon-trash"></i></a>*}
-                        {*</div>*}
-                    {*</h3>*}
-                {*</div>*}
-                {*<div class="panel-body">*}
-                    {*{if $reminder->getType() === 'text'}*}
-                        {*{$reminder->content}*}
-                    {*{else}*}
-                        {*{foreach from=$reminder->content item=todo}*}
-                            {*<input type="checkbox" class="form-control" {if ( intval( $todo.completed ) === 1 )}checked="checked"{/if} disabled="disabled" style="display:inline; vertical-align:bottom;" />&nbsp;{$todo.content}<br />*}
-                        {*{/foreach}*}
-                    {*{/if}*}
-                {*</div>*}
-                {*<div class="panel-footer">*}
-                    {*{if $reminder->tags}*}
-                        {*Tags: {", "|implode:$reminder->tags}*}
-                    {*{/if}*}
-                {*</div>*}
-            {*</div>*}
+    {if ( count( $remindersPaginator.data ) )}
+        {foreach from=$remindersPaginator.data item=reminder}
 
-        {*{/foreach}*}
-    {*{/if}*}
+            {if ( $reminder->getType() === 'text' )}
+                {include file='./partials/text.tpl'}
+            {elseif ( $reminder->getType() === 'todo' )}
+                {include file='./partials/todo.tpl'}
+            {else}
 
-    {*{$paginator}*}
+            {/if}
+
+        {/foreach}
+    {/if}
+
+    {include file='./partials/paginator-controls.tpl' currentPage=$remindersPaginator.current_page totalPages=$remindersPaginator.total_pages}
+
 </div>
