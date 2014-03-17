@@ -61,16 +61,41 @@ class NoteController extends Zend_Controller_Action
         $this->view->form = $form;
     }
 
-    public function updateAction()
-    {
-        $this->view->headTitle( 'Edit text note' );
-    }
-
     public function updateTextAction()
     {
         $id = ( int )$this->getRequest()->getParam( 'noteId', 0 );
 
         $this->view->headTitle( 'Edit text note' );
+
+        $layout = new Zend_Layout();
+        $layout->getView()->headScript()->appendFile( '/js/tag-it.min.js' );
+        $layout->getView()->headLink()->appendStylesheet( '/css/jquery.tagit.css' );
+
+        $layout->getView()->headScript()->appendFile( '/js/scripts/add-edit-note.js' );
+
+        $form = new Application_Form_TextNote();
+
+        if ( $this->getRequest()->isPost() )
+        {
+            $postValues = $this->getRequest()->getPost();
+            if ( $form->isValid( $postValues ) )
+            {
+                $reminderText = new Application_Model_ReminderText;
+                $reminderText->save( $postValues );
+
+                $this->redirect( '' );
+            }
+            else
+            {
+                $form->populate( $postValues );
+            }
+        }
+        else
+        {
+//            $form->populate(  );
+        }
+
+        $this->view->form = $form;
     }
 
     public function updateTodoAction()
