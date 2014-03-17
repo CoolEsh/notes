@@ -9,7 +9,7 @@ define( 'APPLICATION_PATH', ROOT_PATH . '/application' );
 define( 'CONFIG_PATH', APPLICATION_PATH . '/configs' );
 define( 'LIB_PATH', ROOT_PATH . '/library' );
 
-//spl_autoload_unregister( array( 'Zend_Loader_Autoloader','autoload' ) );
+spl_autoload_unregister( array( 'Zend_Loader_Autoloader','autoload' ) );
 
 require_once ROOT_PATH . "/vendor/autoload.php";
 

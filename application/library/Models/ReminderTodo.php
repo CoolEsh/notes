@@ -6,7 +6,7 @@ class ReminderTodo extends ModelAbstract
 {
     public function getForm()
     {
-
+        return new \Application_Form_TodoNote();
     }
     
     public function save( $data )

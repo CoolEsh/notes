@@ -36,4 +36,14 @@ class Reminder extends ModelAbstract
         );
     }
 
+    public function delete( $id )
+    {
+        $em = $this->getEntityManager();
+
+        $reminder = $em->getRepository( 'Entities\Reminder' )->find( $id );
+
+        $em->remove( $reminder );
+        $em->flush();
+    }
+
 }

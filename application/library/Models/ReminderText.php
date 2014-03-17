@@ -6,7 +6,7 @@ class ReminderText extends ModelAbstract
 {
     public function getForm()
     {
-
+        return new \Application_Form_TextNote();
     }
 
     public function save( $data )

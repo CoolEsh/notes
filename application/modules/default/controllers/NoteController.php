@@ -15,40 +15,15 @@ class NoteController extends Zend_Controller_Action
 
         $layout->getView()->headScript()->appendFile( '/js/scripts/add-edit-note.js' );
 
-        $form = new Application_Form_TextNote();
+        $model = new \Models\ReminderText;
+        $form = $model->getForm();
 
         if ( $this->getRequest()->isPost() )
         {
             $postValues = $this->getRequest()->getPost();
             if ( $form->isValid( $postValues ) )
             {
-                $reminderText = new Application_Model_ReminderText;
-                $reminderText->save( $postValues );
-
-                $this->redirect( '' );
-            }
-            else
-            {
-                $form->populate( $postValues );
-            }
-        }
-
-        $this->view->form = $form;
-    }
-
-    public function addTodoAction()
-    {
-        $this->view->headTitle( 'Add to-do note' );
-
-        $form = new Application_Form_TodoNote();
-
-        if ( $this->getRequest()->isPost() )
-        {
-            $postValues = $this->getRequest()->getPost();
-            if ( $form->isValid( $postValues ) )
-            {
-                $reminderTodo = new Application_Model_ReminderTodo;
-                $reminderTodo->save( $postValues );
+                $model->save( $postValues );
 
                 $this->redirect( '' );
             }
@@ -73,15 +48,15 @@ class NoteController extends Zend_Controller_Action
 
         $layout->getView()->headScript()->appendFile( '/js/scripts/add-edit-note.js' );
 
-        $form = new Application_Form_TextNote();
+        $model = new \Models\ReminderText;
+        $form = $model->getForm();
 
         if ( $this->getRequest()->isPost() )
         {
             $postValues = $this->getRequest()->getPost();
             if ( $form->isValid( $postValues ) )
             {
-                $reminderText = new Application_Model_ReminderText;
-                $reminderText->save( $postValues );
+                $model->save( $postValues );
 
                 $this->redirect( '' );
             }
@@ -92,7 +67,32 @@ class NoteController extends Zend_Controller_Action
         }
         else
         {
-//            $form->populate(  );
+//            $form->populate();
+        }
+
+        $this->view->form = $form;
+    }
+
+    public function addTodoAction()
+    {
+        $this->view->headTitle( 'Add to-do note' );
+
+        $model = new \Models\ReminderTodo;
+        $form = $model->getForm();
+
+        if ( $this->getRequest()->isPost() )
+        {
+            $postValues = $this->getRequest()->getPost();
+            if ( $form->isValid( $postValues ) )
+            {
+                $$model->save( $postValues );
+
+                $this->redirect( '' );
+            }
+            else
+            {
+                $form->populate( $postValues );
+            }
         }
 
         $this->view->form = $form;
@@ -110,10 +110,8 @@ class NoteController extends Zend_Controller_Action
         $id = ( int )$this->getRequest()->getParam( 'id', 0 );
         if( !empty( $id ) )
         {
-            $em = Zend_Registry::get( 'em' );
-            $reminder = $em->getRepository( 'Entities\Reminder' )->find( $id );
-            $em->remove( $reminder );
-            $em->flush();
+            $model = new \Models\Reminder;
+            $model->delete( $id );
         }
 
         $this->redirect( '' );
