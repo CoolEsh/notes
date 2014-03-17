@@ -8,14 +8,13 @@ class IndexController extends Zend_Controller_Action
 
         $this->view->headTitle( 'Notes List' );
 
-//        $reminderModel = new Models\Reminder();
-//        $reminders = $reminderModel->findAllForPaging();
-
         $bootstrap = $this->getInvokeArg( 'bootstrap' );
         $container = $bootstrap->getResource( 'container' );
 
         $em = $container['entityManager'];
-        $em->getRepository( 'Entities\Raw\Reminder' )->findAll();
+        $remindersList = $em->getRepository( 'Entities\Reminder' )->findAll();
+
+        $this->view->remindersList = $remindersList;
 
 //        Zend_View_Helper_PaginationControl::setDefaultViewPartial( 'paginator-controls.tpl' );
 //

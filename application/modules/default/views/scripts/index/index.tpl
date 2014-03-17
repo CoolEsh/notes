@@ -1,6 +1,17 @@
 <div class="container">
     <h1>Homepage</h1>
 
+    {foreach from=$remindersList item=reminder}
+        {if ( $reminder->getType() === 'text' )}
+            {include file='./partials/text.tpl'}
+        {elseif ( $reminder->getType() === 'todo' )}
+            {include file='./partials/todo.tpl'}
+        {else}
+
+        {/if}
+    {/foreach}
+
+
     {*{$paginator}*}
 
     {*{if ( count( $paginator ) )}*}

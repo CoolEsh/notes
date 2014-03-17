@@ -13,7 +13,7 @@ class ReminderTodo
     {
         $em = Zend_Registry::get( 'em' );
 
-        $reminderObj = new Entities\Reminder();
+        $reminderObj = new \Entities\Reminder();
         $reminderObj->setType( 'todo' );
         $reminderObj->setTitle( $data['title'] );
 
@@ -22,7 +22,7 @@ class ReminderTodo
             $tags = explode( ',', $data['tags'] );
             foreach ( $tags as $tag )
             {
-                $tagObj = new Entities\Tag();
+                $tagObj = new \Entities\Tag();
                 $tagObj->setName( trim( $tag ) );
                 $reminderObj->addTag( $tagObj );
             }
@@ -31,7 +31,7 @@ class ReminderTodo
         $em->persist( $reminderObj );
         $em->flush();
 
-        $reminderTextObj = new Entities\ReminderTodo();
+        $reminderTextObj = new \Entities\ReminderTodo();
         $reminderTextObj->setContent( $data['content'] );
         $reminderTextObj->setReminder( $reminderObj );
 

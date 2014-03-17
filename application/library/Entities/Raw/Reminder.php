@@ -37,7 +37,7 @@ class Reminder
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="reminder",cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="\Entities\Tag", inversedBy="reminder", cascade={"persist"})
      * @ORM\JoinTable(name="reminder_tag",
      *   joinColumns={
      *     @ORM\JoinColumn(name="reminder_id", referencedColumnName="id")
@@ -47,7 +47,7 @@ class Reminder
      *   }
      * )
      */
-    private $tag;
+    protected $tag;
 
     /**
      * Constructor

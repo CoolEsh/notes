@@ -32,7 +32,7 @@ class Tag
      *
      * @ORM\ManyToMany(targetEntity="Reminder", mappedBy="tag")
      */
-    private $reminder;
+    protected $reminder;
 
     /**
      * Constructor

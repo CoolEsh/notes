@@ -13,7 +13,7 @@ class ReminderText
     {
         $em = Zend_Registry::get( 'em' );
 
-        $reminderObj = new Entities\Reminder();
+        $reminderObj = new \Entities\Reminder();
         $reminderObj->setType( 'text' );
         $reminderObj->setTitle( $data['title'] );
 
@@ -22,13 +22,13 @@ class ReminderText
             $tags = explode( ',', $data['tags'] );
             foreach ( $tags as $tag )
             {
-                $tagObj = new Entities\Tag();
+                $tagObj = new \Entities\Tag();
                 $tagObj->setName( trim( $tag ) );
                 $reminderObj->addTag( $tagObj );
             }
         }
 
-        $reminderTextObj = new Entities\ReminderText();
+        $reminderTextObj = new \Entities\ReminderText();
         $reminderTextObj->setContent( $data['content'] );
         $reminderTextObj->setReminder( $reminderObj );
 
