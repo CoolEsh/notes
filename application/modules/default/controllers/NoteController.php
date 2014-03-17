@@ -107,7 +107,7 @@ class NoteController extends Zend_Controller_Action
 
     public function deleteAction()
     {
-        $id = ( int )$this->getRequest()->getParam( 'id', 0 );
+        $id = ( int )$this->getRequest()->getParam( 'noteId', 0 );
         if( !empty( $id ) )
         {
             $model = new \Models\Reminder;

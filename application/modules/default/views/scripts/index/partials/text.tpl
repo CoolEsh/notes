@@ -3,9 +3,9 @@
         <h3 class="panel-title">
             {$reminder->getTitle()}
             <div class="pull-right">
-                <a href="/note/update-text/{$reminder->getId()}"><i class="glyphicon glyphicon-edit"></i></a>
+                <a href="/note/update/{$reminder->getId()}"><i class="glyphicon glyphicon-edit"></i></a>
                 &nbsp;
-                <a href="/note/delete-text/{$reminder->getId()}"><i class="glyphicon glyphicon-trash"></i></a>
+                <a href="/note/delete/{$reminder->getId()}"><i class="glyphicon glyphicon-trash"></i></a>
             </div>
         </h3>
     </div>

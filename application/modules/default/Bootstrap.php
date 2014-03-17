@@ -55,6 +55,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             )
         );
         $router->addRoute( 'update-todo-note', $route_update_todo_notes );
+
+        $route_delete_note = new Zend_Controller_Router_Route(
+            '/note/delete/:noteId/*',
+            array(
+                'controller' => 'note',
+                'action' => 'delete'
+            ),
+            array(
+                'noteId' => '[\w\-]+'
+            )
+        );
+        $router->addRoute( 'delete-note', $route_delete_note );
     }
 
 }
