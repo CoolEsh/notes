@@ -19,7 +19,7 @@ class ReminderTodo extends ModelAbstract
 
         if ( !empty( $data['tags'] ) )
         {
-            $tags = explode( ',', $data['tags'] );
+            $tags = explode( ' ', $data['tags'] );
             foreach ( $tags as $tag )
             {
                 $tagObj = new \Entities\Tag();
