@@ -69,4 +69,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $router->addRoute( 'delete-note', $route_delete_note );
     }
 
+    public function _initResources()
+    {
+        $containerResource = new \Ext\Application\Resource\Container( null, new Pimple );
+        $this->registerPluginResource( $containerResource );
+    }
+
 }

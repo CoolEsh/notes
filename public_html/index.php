@@ -26,7 +26,4 @@ $application = new Zend_Application(
     )
 );
 
-$resource = new \Ext\Application\Resource\Container( null, new Pimple );
-$application->getBootstrap()->registerPluginResource( $resource );
-
 $application->bootstrap()->run();
