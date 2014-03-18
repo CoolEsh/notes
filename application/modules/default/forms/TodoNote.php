@@ -12,6 +12,15 @@ class Application_Form_TodoNote extends Zend_Form
     {
         $elements = array();
 
+        $this->getView()->headScript()->appendFile( '/js/tag-it.min.js' );
+        $this->getView()->headLink()->appendStylesheet( '/css/jquery.tagit.css' );
+
+        $this->getView()->headScript()->appendFile( '/js/scripts/add-edit-note.js' );
+
+        $elements['id'] = new Zend_Form_Element_Hidden( 'id' );
+        $elements['id']->removeDecorator( 'Label' )
+            ->removeDecorator( 'Errors' );
+
         $elements['title'] = new Zend_Form_Element_Text( 'title' );
         $elements['title']->addFilter( 'StripTags' )
             ->setAttribs( array(
