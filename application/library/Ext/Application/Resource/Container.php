@@ -36,7 +36,9 @@ class Container extends Zend_Application_Resource_ResourceAbstract
             return EntityManager::create( $zendConfig['doctrine']['connectionParameters'], $configuration );
         } );
 
-        $this->container['modelRepository'] = array();
+        $this->container['modelRepository'] = $this->container->share( function ( $c ) {
+            return new \Models\Repository;
+        } );
 
         return $this->container;
     }

@@ -1,6 +1,6 @@
 <?php
 
-class IndexController extends Zend_Controller_Action
+class IndexController extends My_Controller_Action_Abstract
 {
     public function indexAction()
     {
@@ -8,7 +8,7 @@ class IndexController extends Zend_Controller_Action
 
         $this->view->headTitle( 'Notes List' );
 
-        $reminderModel = new Models\Reminder();
+        $reminderModel = $this->container['modelRepository']->getReminderModel();
         $remindersPaginator = $reminderModel->getPageRecords( $this->view->page );
 
         $this->view->remindersPaginator = $remindersPaginator;

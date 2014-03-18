@@ -1,6 +1,6 @@
 <?php
 
-class NoteController extends Zend_Controller_Action
+class NoteController extends My_Controller_Action_Abstract
 {
     public function indexAction()
     {}
@@ -9,7 +9,7 @@ class NoteController extends Zend_Controller_Action
     {
         $this->view->headTitle( 'Add text note' );
 
-        $model = new \Models\ReminderText;
+        $model = $this->container['modelRepository']->getReminderTextModel();
         $form = $model->getForm();
 
         if ( $this->getRequest()->isPost() )
@@ -36,7 +36,7 @@ class NoteController extends Zend_Controller_Action
 
         $this->view->headTitle( 'Edit text note' );
 
-        $model = new \Models\ReminderText;
+        $model = $this->container['modelRepository']->getReminderTextModel();
         $form = $model->getForm();
 
         if ( $this->getRequest()->isPost() )
@@ -65,7 +65,7 @@ class NoteController extends Zend_Controller_Action
     {
         $this->view->headTitle( 'Add to-do note' );
 
-        $model = new \Models\ReminderTodo;
+        $model = $this->container['modelRepository']->getReminderTodoModel();
         $form = $model->getForm();
 
         if ( $this->getRequest()->isPost() )
@@ -92,7 +92,7 @@ class NoteController extends Zend_Controller_Action
 
         $this->view->headTitle( 'Edit to-do note' );
 
-        $model = new \Models\ReminderTodo;
+        $model = $this->container['modelRepository']->getReminderTodoModel();
         $form = $model->getForm();
 
         if ( $this->getRequest()->isPost() )
@@ -122,7 +122,7 @@ class NoteController extends Zend_Controller_Action
         $id = ( int )$this->getRequest()->getParam( 'noteId', 0 );
         if( !empty( $id ) )
         {
-            $model = new \Models\Reminder;
+            $model = $this->container['modelRepository']->getReminderModel();
             $model->delete( $id );
         }
 
