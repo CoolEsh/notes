@@ -15,6 +15,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initView()
     {
         $view = new Ext_View_Smarty( $this->getOption( 'smarty' ) );
+        $view->addHelperPath( LIB_PATH . '/My/View/Helper/', 'My_View_Helper' );
 
         $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper( 'ViewRenderer' );
         $viewRenderer->setViewSuffix( 'tpl' );

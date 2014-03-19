@@ -8,10 +8,11 @@ class IndexController extends My_Controller_Action_Abstract
 
         $this->view->headTitle( 'Notes List' );
 
-        $reminderModel = $this->container['modelRepository']->getReminderModel();
-        $remindersPaginator = $reminderModel->getPageRecords( $this->view->page );
+        /** @var \Models\Reminder $model */
+        $model = $this->container['modelRepository']->getReminderModel();
+        $paginator = $model->getPageRecords( $this->view->page );
 
-        $this->view->remindersPaginator = $remindersPaginator;
+        $this->view->remindersPaginator = $paginator;
     }
 
 }

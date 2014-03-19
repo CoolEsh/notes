@@ -4,9 +4,19 @@ namespace Models;
 
 class ReminderTodo extends ModelAbstract
 {
-    public function getForm()
+    public function getForm( $reminderId = null )
     {
-        return new \Application_Form_TodoNote();
+        $content = array();
+
+        if ( !empty( $reminderId ) )
+        {
+            $em = $this->getEntityManager();
+
+            $reminder = $em->getRepository( '\Entities\Reminder' )->find( $reminderId );
+            $content = $reminder->getContent();
+        }
+
+        return new \Application_Form_TodoNote( array( 'content' => $content ) );
     }
 
     public function populateForm( &$form, $reminderId )
@@ -14,7 +24,7 @@ class ReminderTodo extends ModelAbstract
         $populateArr = array(
             'id' => '',
             'title' => '',
-            'content' => '',
+            'content' => array(),
             'tags' => array()
         );
 
@@ -22,10 +32,11 @@ class ReminderTodo extends ModelAbstract
 
         $reminder = $em->getRepository( '\Entities\Reminder' )->find( $reminderId );
 
+        $populateArr['id'] = $reminder->getId();
+
         $populateArr['title'] = $reminder->getTitle();
 
-        $content = $reminder->getContent();
-        $populateArr['content'] = $content[ 0 ]->getContent();
+        $populateArr['content'] = $reminder->getContent();
 
         $tags = $reminder->getTag();
         foreach ( $tags as $tag )
@@ -71,22 +82,30 @@ class ReminderTodo extends ModelAbstract
         $em->persist( $reminderObj );
         $em->flush();
 
-        $reminderTodoObj = new \Entities\ReminderTodo();
-        $reminderTodoObj->setContent( $data['content'] );
-        $reminderTodoObj->setReminder( $reminderObj );
+        foreach ( $data['todo_content'] as $key => $todoText )
+        {
+            $reminderTodoObj = new \Entities\ReminderTodo();
+            $reminderTodoObj->setContent( $todoText );
+            $reminderTodoObj->setCompleted( intval( $data['todo_completed'][ $key ] ) === 1 );
+            $reminderTodoObj->setReminder( $reminderObj );
 
-        $em->persist( $reminderTodoObj );
-        $em->flush();
+            $em->persist( $reminderTodoObj );
+            $em->flush();
+        }
     }
 
     private function _update( $data )
     {
         $em = $this->getEntityManager();
 
-        $reminderObj = new \Entities\Reminder();
-        $reminderObj->setId( $data['id'] );
-        $reminderObj->setType( 'todo' );
+        $reminderObj = $em->find( '\Entities\Reminder', $data['id'] );
         $reminderObj->setTitle( $data['title'] );
+
+        foreach ( $reminderObj->getTag() as $tagObj )
+        {
+            $reminderObj->removeTag( $tagObj );
+            $em->remove( $tagObj );
+        }
 
         if ( !empty( $data['tags'] ) )
         {
@@ -99,14 +118,24 @@ class ReminderTodo extends ModelAbstract
             }
         }
 
-        $em->persist( $reminderObj );
+        $em->merge( $reminderObj );
         $em->flush();
 
-        $reminderTodoObj = new \Entities\ReminderTodo();
-        $reminderTodoObj->setContent( $data['content'] );
-        $reminderTodoObj->setReminder( $reminderObj );
+        $reminderContent = $reminderObj->getContent();
+        foreach ( $reminderContent as $todoObj )
+        {
+            $em->remove( $todoObj );
+        }
 
-        $em->persist( $reminderTodoObj );
-        $em->flush();
+        foreach ( $data['todo_content'] as $key => $todoText )
+        {
+            $reminderTodoObj = new \Entities\ReminderTodo();
+            $reminderTodoObj->setContent( $todoText );
+            $reminderTodoObj->setCompleted( intval( $data['todo_completed'][ $key ] ) === 1 );
+            $reminderTodoObj->setReminder( $reminderObj );
+
+            $em->persist( $reminderTodoObj );
+            $em->flush();
+        }
     }
 }

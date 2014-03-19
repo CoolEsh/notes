@@ -1,13 +1,13 @@
 $( function() {
 
-    $( ".form-submit" ).on( "click", function() {
+    $( ".container" ).on( "click", ".form-submit", function() {
         $( this ).closest( "form" ).submit();
     } );
 
     /**
      * BOF delete action handling
      */
-    $( ".container" ).delegate( ".delete-action", "click", function() {
+    $( ".container" ).on( "click", ".delete-action", function() {
         var $el = $( this );
 
         $( "#modal_dialog" ).find( ".modal_dialog_title" ).html( $el.data( "title" ) );

@@ -19,6 +19,7 @@ class Application_Form_TodoNote extends Zend_Form
 
         $elements['id'] = new Zend_Form_Element_Hidden( 'id' );
         $elements['id']->removeDecorator( 'Label' )
+            ->removeDecorator('HtmlTag')
             ->removeDecorator( 'Errors' );
 
         $elements['title'] = new Zend_Form_Element_Text( 'title' );
@@ -34,22 +35,7 @@ class Application_Form_TodoNote extends Zend_Form
                 )
             ) )
             ->removeDecorator( 'Label' )
-            ->removeDecorator( 'Errors' );
-
-        $elements['content'] = new My_Form_Element_Todo( 'content[]' );
-        $elements['content']->addFilter( 'StripTags' )
-            ->setAttribs( array(
-                'id' => 'note-content',
-                'class' => 'form-control',
-                'rows' => '6'
-            ) )
-            ->setRequired( true )
-            ->addValidator( 'NotEmpty', true, array(
-                'messages'  => array(
-                    Zend_Validate_NotEmpty::IS_EMPTY => 'Message is required'
-                )
-            ) )
-            ->removeDecorator( 'Label' )
+            ->removeDecorator('HtmlTag')
             ->removeDecorator( 'Errors' );
 
         $elements['tags'] = new Zend_Form_Element_Text( 'tags' );
@@ -59,33 +45,53 @@ class Application_Form_TodoNote extends Zend_Form
                 'class' => 'form-control'
             ) )
             ->removeDecorator( 'Label' )
+            ->removeDecorator('HtmlTag')
             ->removeDecorator( 'Errors' );
 
-        $this->setElements( $elements );
+        $this->addElements( $elements );
     }
 
-    public function setTodos( $todos )
+    public function setContent( $todos )
     {
-        foreach ( $todos as $todo )
+        $subform = new Zend_Form_SubForm( 'todos' );
+
+        if ( !empty( $todos ) )
         {
-            $todoElem = new My_Form_Element_Todo( 'content[]' );
+            foreach ( $todos as $todo )
+            {
+                $todoElem = new My_Form_Element_Todo( 'todo[]' );
+                $todoElem->addFilter( 'StripTags' )
+                    ->setAttribs( array(
+                        'id' => 'note-content',
+                        'class' => 'form-control',
+                        'key' => $todo->getId()
+                    ) )
+                    ->removeDecorator( 'Label' )
+                    ->removeDecorator('HtmlTag')
+                    ->removeDecorator( 'Errors' );
+                $todoElem->setCompleted( $todo->getCompleted() );
+                $todoElem->setContent( $todo->getContent() );
+
+                $subform->addElement( $todoElem, 'todo' . $todo->getId() );
+            }
+        }
+        else
+        {
+            $todoElem = new My_Form_Element_Todo( 'todo[]' );
             $todoElem->addFilter( 'StripTags' )
                 ->setAttribs( array(
                     'id' => 'note-content',
                     'class' => 'form-control',
-                    'rows' => '6'
-                ) )
-                ->setRequired( true )
-                ->addValidator( 'NotEmpty', true, array(
-                    'messages'  => array(
-                        Zend_Validate_NotEmpty::IS_EMPTY => 'Message is required'
-                    )
+                    'key' => 0
                 ) )
                 ->removeDecorator( 'Label' )
+                ->removeDecorator('HtmlTag')
                 ->removeDecorator( 'Errors' );
 
-            $this->addElement( $todoElem );
+            $subform->addElement( $todoElem, 'todo0' );
         }
+
+        $this->addSubForm( $subform, 'todos' );
     }
 
 }

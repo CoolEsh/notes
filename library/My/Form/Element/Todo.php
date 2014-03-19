@@ -2,7 +2,7 @@
 
 class My_Form_Element_Todo extends Zend_Form_Element_Xhtml
 {
-    public $helper = 'My_View_Helper_Todo';
+    public $helper = 'formTodo';
 
     protected $_completed;
     protected $_content;
@@ -32,6 +32,14 @@ class My_Form_Element_Todo extends Zend_Form_Element_Xhtml
     public function getContent()
     {
         return $this->_content;
+    }
+
+    public function getValue()
+    {
+        return array(
+            'completed' => $this->getCompleted(),
+            'content' => $this->getContent()
+        );
     }
 
 }

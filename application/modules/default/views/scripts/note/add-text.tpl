@@ -18,19 +18,19 @@
         <div class="form-group">
             <label for="note-title" class="col-sm-2 control-label">Title</label>
             <div class="col-sm-10">
-                {{$form->getElement( 'title' )->render()}}
+                {$form->getElement( 'title' )->render()}
             </div>
         </div>
         <div class="form-group">
             <label for="note-content" class="col-sm-2 control-label">Message</label>
             <div class="col-sm-10">
-                {{$form->getElement( 'content' )->render()}}
+                {$form->getElement( 'content' )->render()}
             </div>
         </div>
         <div class="form-group">
             <label for="note-tags" class="col-sm-2 control-label">Tags</label>
             <div class="col-sm-10">
-                {{$form->getElement( 'tags' )->render()}}
+                {$form->getElement( 'tags' )->render()}
             </div>
         </div>
         <div class="form-group">

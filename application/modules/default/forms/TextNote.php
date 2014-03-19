@@ -19,6 +19,7 @@ class Application_Form_TextNote extends Zend_Form
 
         $elements['id'] = new Zend_Form_Element_Hidden( 'id' );
         $elements['id']->removeDecorator( 'Label' )
+            ->removeDecorator('HtmlTag')
             ->removeDecorator( 'Errors' );
 
         $elements['title'] = new Zend_Form_Element_Text( 'title' );
@@ -34,6 +35,7 @@ class Application_Form_TextNote extends Zend_Form
                 )
             ) )
             ->removeDecorator( 'Label' )
+            ->removeDecorator('HtmlTag')
             ->removeDecorator( 'Errors' );
 
         $elements['content'] = new Zend_Form_Element_Textarea( 'content' );
@@ -50,6 +52,7 @@ class Application_Form_TextNote extends Zend_Form
                 )
             ) )
             ->removeDecorator( 'Label' )
+            ->removeDecorator('HtmlTag')
             ->removeDecorator( 'Errors' );
 
         $elements['tags'] = new Zend_Form_Element_Text( 'tags' );
@@ -59,6 +62,7 @@ class Application_Form_TextNote extends Zend_Form
                 'class' => 'form-control'
             ) )
             ->removeDecorator( 'Label' )
+            ->removeDecorator('HtmlTag')
             ->removeDecorator( 'Errors' );
 
         $this->setElements( $elements );

@@ -9,6 +9,7 @@ class NoteController extends My_Controller_Action_Abstract
     {
         $this->view->headTitle( 'Add text note' );
 
+        /** @var \Models\ReminderText $model */
         $model = $this->container['modelRepository']->getReminderTextModel();
         $form = $model->getForm();
 
@@ -36,6 +37,7 @@ class NoteController extends My_Controller_Action_Abstract
 
         $this->view->headTitle( 'Edit text note' );
 
+        /** @var \Models\ReminderText $model */
         $model = $this->container['modelRepository']->getReminderTextModel();
         $form = $model->getForm();
 
@@ -65,6 +67,7 @@ class NoteController extends My_Controller_Action_Abstract
     {
         $this->view->headTitle( 'Add to-do note' );
 
+        /** @var \Models\ReminderTodo $model */
         $model = $this->container['modelRepository']->getReminderTodoModel();
         $form = $model->getForm();
 
@@ -92,8 +95,9 @@ class NoteController extends My_Controller_Action_Abstract
 
         $this->view->headTitle( 'Edit to-do note' );
 
+        /** @var \Models\ReminderTodo $model */
         $model = $this->container['modelRepository']->getReminderTodoModel();
-        $form = $model->getForm();
+        $form = $model->getForm( $id );
 
         if ( $this->getRequest()->isPost() )
         {
@@ -122,6 +126,7 @@ class NoteController extends My_Controller_Action_Abstract
         $id = ( int )$this->getRequest()->getParam( 'noteId', 0 );
         if( !empty( $id ) )
         {
+            /** @var \Models\Reminder $model */
             $model = $this->container['modelRepository']->getReminderModel();
             $model->delete( $id );
         }
