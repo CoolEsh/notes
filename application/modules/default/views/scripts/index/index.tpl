@@ -1,5 +1,5 @@
 <div class="container">
-    <h1>Homepage</h1>
+    <h1>Notes List</h1>
 
     {include file='./partials/paginator-controls.tpl' currentPage=$remindersPaginator.current_page totalPages=$remindersPaginator.total_pages}
 

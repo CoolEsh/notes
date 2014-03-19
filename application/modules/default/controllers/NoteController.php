@@ -76,7 +76,7 @@ class NoteController extends My_Controller_Action_Abstract
             $postValues = $this->getRequest()->getPost();
             if ( $form->isValid( $postValues ) )
             {
-                $$model->save( $postValues );
+                $model->save( $postValues );
 
                 $this->redirect( '' );
             }
