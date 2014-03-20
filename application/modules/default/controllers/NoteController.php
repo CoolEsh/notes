@@ -8,9 +8,8 @@ class NoteController extends My_Controller_Action_Abstract
 
         $this->view->headTitle( 'Notes List' );
 
-        $container = $this->getContainer();
         /** @var \Models\Reminder $model */
-        $model = $container['modelRepository']->getReminderModel();
+        $model = $this->getContainer()['modelRepository']->getReminderModel();
         $paginator = $model->getPageRecords( $this->view->page );
 
         $this->view->remindersPaginator = $paginator;
@@ -48,9 +47,8 @@ class NoteController extends My_Controller_Action_Abstract
 
         $this->view->headTitle( 'Edit text note' );
 
-        $container = $this->getContainer();
         /** @var \Models\ReminderText $model */
-        $model = $container['modelRepository']->getReminderTextModel();
+        $model = $this->getContainer()['modelRepository']->getReminderTextModel();
         $form = $model->getForm();
 
         if ( $this->getRequest()->isPost() )
