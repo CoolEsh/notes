@@ -2,9 +2,6 @@
 
 namespace Models;
 
-use Zend_Controller_Front,
-    \Doctrine\ORM\Tools\Pagination\Paginator;
-
 class Reminder extends ModelAbstract
 {
     private $_itemsPerPage = 3;
