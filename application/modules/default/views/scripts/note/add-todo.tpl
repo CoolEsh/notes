@@ -36,7 +36,7 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <a href="javascript:;" class="btn btn-success form-submit">Add text note</a>
+                <a href="javascript:;" class="btn btn-success form-submit">Add to-do note</a>
                 <a href="/" class="btn btn-default">Cancel</a>
             </div>
         </div>

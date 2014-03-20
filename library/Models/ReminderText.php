@@ -54,6 +54,7 @@ class ReminderText extends ModelAbstract
     public function _create( $data )
     {
         $em = $this->getEntityManager();
+        $tagModel = $this->getModelRepository()->getTagModel();
 
         $reminderObj = new \Entities\Reminder();
         $reminderObj->setType( 'text' );
@@ -64,8 +65,18 @@ class ReminderText extends ModelAbstract
             $tags = explode( ',', $data['tags'] );
             foreach ( $tags as $tag )
             {
-                $tagObj = new \Entities\Tag();
-                $tagObj->setName( trim( $tag ) );
+                $tag = trim( $tag );
+
+                if ( $tagModel->isTagExist( $tag ) )
+                {
+                    $tagObj = $tagModel->getExistingTag();
+                }
+                else
+                {
+                    $tagObj = new \Entities\Tag();
+                    $tagObj->setName( $tag );
+                }
+
                 $reminderObj->addTag( $tagObj );
             }
         }
@@ -81,6 +92,7 @@ class ReminderText extends ModelAbstract
     public function _update( $data )
     {
         $em = $this->getEntityManager();
+        $tagModel = $this->getModelRepository()->getTagModel();
 
         $reminderObj = $em->find( '\Entities\Reminder', $data['id'] );
         $reminderObj->setTitle( $data['title'] );
@@ -88,7 +100,6 @@ class ReminderText extends ModelAbstract
         foreach ( $reminderObj->getTag() as $tagObj )
         {
             $reminderObj->removeTag( $tagObj );
-            $em->remove( $tagObj );
         }
 
         if ( !empty( $data['tags'] ) )
@@ -96,8 +107,18 @@ class ReminderText extends ModelAbstract
             $tags = explode( ',', $data['tags'] );
             foreach ( $tags as $tag )
             {
-                $tagObj = new \Entities\Tag();
-                $tagObj->setName( trim( $tag ) );
+                $tag = trim( $tag );
+
+                if ( $tagModel->isTagExist( $tag ) )
+                {
+                    $tagObj = $tagModel->getExistingTag();
+                }
+                else
+                {
+                    $tagObj = new \Entities\Tag();
+                    $tagObj->setName( $tag );
+                }
+
                 $reminderObj->addTag( $tagObj );
             }
         }
