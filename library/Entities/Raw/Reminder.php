@@ -23,16 +23,23 @@ class Reminder
     /**
      * @var string
      *
+     * @ORM\Column(name="type", type="string", length=32, nullable=false)
+     */
+    private $type;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="title", type="string", length=255, nullable=false)
      */
     private $title;
 
     /**
-     * @var \string
+     * @var string
      *
-     * @ORM\Column(name="type", type="string", length=32, nullable=false)
+     * @ORM\Column(name="image", type="string", length=255, nullable=true)
      */
-    private $type;
+    private $image;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -69,6 +76,29 @@ class Reminder
     }
 
     /**
+     * Set type
+     *
+     * @param string $type
+     * @return Reminder
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string 
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
      * Set title
      *
      * @param string $title
@@ -92,26 +122,26 @@ class Reminder
     }
 
     /**
-     * Set type
+     * Set image
      *
-     * @param string $type
+     * @param string $image
      * @return Reminder
      */
-    public function setType($type)
+    public function setImage($image)
     {
-        $this->type = $type;
+        $this->image = $image;
 
         return $this;
     }
 
     /**
-     * Get type
+     * Get image
      *
-     * @return string
+     * @return string 
      */
-    public function getType()
+    public function getImage()
     {
-        return $this->type;
+        return $this->image;
     }
 
     /**

@@ -28,7 +28,7 @@ class ReminderText
     private $content;
 
     /**
-     * @var \Reminder
+     * @var \Entities\Reminder
      *
      * @ORM\ManyToOne(targetEntity="Reminder",cascade={"persist"})
      * @ORM\JoinColumns({
@@ -75,10 +75,10 @@ class ReminderText
     /**
      * Set reminder
      *
-     * @param \Reminder $reminder
+     * @param \Entities\Reminder $reminder
      * @return ReminderText
      */
-    public function setReminder($reminder = null)
+    public function setReminder(\Entities\Reminder $reminder = null)
     {
         $this->reminder = $reminder;
 
@@ -88,7 +88,7 @@ class ReminderText
     /**
      * Get reminder
      *
-     * @return \Reminder 
+     * @return \Entities\Reminder
      */
     public function getReminder()
     {

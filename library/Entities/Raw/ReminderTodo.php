@@ -35,7 +35,7 @@ class ReminderTodo
     private $completed = '0';
 
     /**
-     * @var \Reminder
+     * @var \Entities\Reminder
      *
      * @ORM\ManyToOne(targetEntity="Reminder")
      * @ORM\JoinColumns({
