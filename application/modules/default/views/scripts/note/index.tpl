@@ -1,7 +1,7 @@
 <div class="container">
     <h1>Notes List</h1>
 
-    {include file='./partials/paginator-controls.tpl' currentPage=$remindersPaginator.current_page totalPages=$remindersPaginator.total_pages}
+    {include file='./partials/paginator-controls.tpl' paginator=$remindersPaginator}
 
     {if ( count( $remindersPaginator.data ) )}
         {foreach from=$remindersPaginator.data item=reminder}
@@ -17,6 +17,6 @@
         {/foreach}
     {/if}
 
-    {include file='./partials/paginator-controls.tpl' currentPage=$remindersPaginator.current_page totalPages=$remindersPaginator.total_pages}
+    {include file='./partials/paginator-controls.tpl' paginator=$remindersPaginator}
 
 </div>
