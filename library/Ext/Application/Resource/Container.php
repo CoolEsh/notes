@@ -40,6 +40,10 @@ class Container extends Zend_Application_Resource_ResourceAbstract
             return new \Models\Repository;
         } );
 
+        $this->container['repositoryManager'] = $this->container->share( function () {
+            return new \Models\RepositoryManager;
+        } );
+
         return $this->container;
     }
 }

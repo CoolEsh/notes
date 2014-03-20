@@ -19,4 +19,28 @@ class ModelAbstract
         return $container['entityManager'];
     }
 
+    /**
+     * @return \ReminderRepository
+     */
+    public function getReminderRepository()
+    {
+        return $this->getEntityManager()->getRepository( '\Entities\Reminder' );
+    }
+
+    /**
+     * @return \ReminderTextRepository
+     */
+    public function getReminderTextRepository()
+    {
+        return $this->getEntityManager()->getRepository( '\Entities\ReminderText' );
+    }
+
+    /**
+     * @return \ReminderTodoRepository
+     */
+    public function getReminderTodoRepository()
+    {
+        return $this->getEntityManager()->getRepository( '\Entities\ReminderTodo' );
+    }
+
 }

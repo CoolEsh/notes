@@ -20,7 +20,7 @@ class ReminderText extends ModelAbstract
 
         $em = $this->getEntityManager();
 
-        $reminder = $em->getRepository( '\Entities\Reminder' )->find( $reminderId );
+        $reminder = $this->getReminderRepository()->find( $reminderId );
 
         $populateArr['id'] = $reminder->getId();
 
