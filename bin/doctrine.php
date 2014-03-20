@@ -25,12 +25,12 @@ $application = new Zend_Application(
 
 $config = new \Doctrine\ORM\Configuration();
 
-$config->setProxyDir( __DIR__ . '/application/models/Proxies/' );
+$config->setProxyDir( __DIR__ . '/library/Proxies/' );
 $config->setProxyNamespace( 'Proxies' );
 
 AnnotationRegistry::registerFile( $vendor . 'doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php' );
 $reader = new AnnotationReader();
-$driverImpl = new \Doctrine\ORM\Mapping\Driver\AnnotationDriver( $reader, array( __DIR__ . "/../application/models/Entities/" ) );
+$driverImpl = new \Doctrine\ORM\Mapping\Driver\AnnotationDriver( $reader, array( __DIR__ . "/../library/Entities/Raw" ) );
 $config->setMetadataDriverImpl( $driverImpl );
 
 $connectionOptions = array(
