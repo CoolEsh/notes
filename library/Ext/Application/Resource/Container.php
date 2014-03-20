@@ -20,23 +20,23 @@ class Container extends Zend_Application_Resource_ResourceAbstract
 
     public function init()
     {
-        $zendConfig = $this->getBootstrap()->getOptions();
+        $doctrineConfig = $this->getOptions();
 
-        $this->container['entityManager'] = $this->container->share( function ( $c ) use ( $zendConfig ) {
+        $this->container['entityManager'] = $this->container->share( function () use ( $doctrineConfig ) {
             $configuration = new \Doctrine\ORM\Configuration;
 
-            $configuration->setAutoGenerateProxyClasses( $zendConfig['doctrine']['autoGenerateProxyClasses'] );
-            $configuration->setProxyDir( $zendConfig['doctrine']['proxyPath'] );
-            $configuration->setProxyNamespace( $zendConfig['doctrine']['proxyNamespace'] );
+            $configuration->setAutoGenerateProxyClasses( $doctrineConfig['autoGenerateProxyClasses'] );
+            $configuration->setProxyDir( $doctrineConfig['proxyPath'] );
+            $configuration->setProxyNamespace( $doctrineConfig['proxyNamespace'] );
 
             $configuration->setMetadataDriverImpl(
-                $configuration->newDefaultAnnotationDriver( $zendConfig['doctrine']['entityPath'], false )
+                $configuration->newDefaultAnnotationDriver( $doctrineConfig['entityPath'], false )
             );
 
-            return EntityManager::create( $zendConfig['doctrine']['connectionParameters'], $configuration );
+            return EntityManager::create( $doctrineConfig['connectionParameters'], $configuration );
         } );
 
-        $this->container['modelRepository'] = $this->container->share( function ( $c ) {
+        $this->container['modelRepository'] = $this->container->share( function () {
             return new \Models\Repository;
         } );
 
