@@ -7,6 +7,7 @@ class Repository
     private $_reminderModel = null;
     private $_reminderTextModel = null;
     private $_reminderTodoModel = null;
+    private $_tagModel = null;
 
     /**
      * @return \Models\Reminder
@@ -45,6 +46,19 @@ class Repository
         }
 
         return $this->_reminderTodoModel;
+    }
+
+    /**
+     * @return \Models\Tag
+     */
+    public function getTagModel()
+    {
+        if ( $this->_tagModel === null )
+        {
+            $this->_tagModel = new \Models\Tag;
+        }
+
+        return $this->_tagModel;
     }
 
 }

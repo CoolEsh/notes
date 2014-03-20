@@ -9,14 +9,32 @@ class ModelAbstract
     /**
      * @return \Ext\Application\Resource\Container
      */
-    protected function getEntityManager()
+    private function _getContainer()
     {
         $front = Zend_Controller_Front::getInstance();
 
         $bootstrap = $front->getParam( 'bootstrap' );
-        $container = $bootstrap->getResource( 'container' );
+        return $bootstrap->getResource( 'container' );
+    }
+
+    /**
+     * @return \Doctrine\ORM\EntityManager
+     */
+    protected function getEntityManager()
+    {
+        $container = $this->_getContainer();
 
         return $container['entityManager'];
+    }
+
+    /**
+     * @return \Models\Repository
+     */
+    protected function getModelRepository()
+    {
+        $container = $this->_getContainer();
+
+        return $container['modelRepository'];
     }
 
     /**
@@ -41,6 +59,14 @@ class ModelAbstract
     public function getReminderTodoRepository()
     {
         return $this->getEntityManager()->getRepository( '\Entities\ReminderTodo' );
+    }
+
+    /**
+     * @return \TagRepository
+     */
+    public function getTagRepository()
+    {
+        return $this->getEntityManager()->getRepository( '\Entities\Tag' );
     }
 
 }
