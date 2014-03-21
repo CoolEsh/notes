@@ -2,6 +2,8 @@
 
 namespace Models;
 
+use Zend_Filter_File_Rename;
+
 class ReminderTodo extends ModelAbstract
 {
     private $_tmpUploadPath = '/application/tmp/upload/';
@@ -59,6 +61,45 @@ class ReminderTodo extends ModelAbstract
         $populateArr['tags'] = implode( ',', $populateArr['tags'] );
 
         $form->populate( $populateArr );
+    }
+
+    public function validateForm( &$form, $postValues )
+    {
+        if ( $form->isValid( $postValues ) )
+        {
+            $this->_formValues = $postValues;
+            if ( $form->image->receive() )
+            {
+                $this->_formValues['image'] = $this->_renameFile( $form->image->getFileName() );
+            }
+
+            return true;
+        }
+        else
+        {
+            $this->_formValues = $form->getValues();
+
+            return false;
+        }
+    }
+
+    public function getFormValues()
+    {
+        return $this->_formValues;
+    }
+
+    private function _renameFile( $locationFile )
+    {
+        $newFileName = sha1( uniqid( rand(), true ) ).'.jpg';
+        $fullPathFileName = $this->getUploadPath() . $newFileName;
+
+        $filterRename = new Zend_Filter_File_Rename( array(
+            'target' => $fullPathFileName,
+            'overwrite' => true
+        ) );
+        $filterRename->filter( $locationFile );
+
+        return $newFileName;
     }
 
     public function save( $data )

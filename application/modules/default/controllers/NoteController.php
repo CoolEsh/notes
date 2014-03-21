@@ -26,32 +26,11 @@ class NoteController extends My_Controller_Action_Abstract
         if ( $this->getRequest()->isPost() )
         {
             $postValues = $this->getRequest()->getPost();
-            if ( $form->isValid( $postValues ) )
+            if ( $model->validateForm( $form, $postValues ) )
             {
-                $formValues = $form->getValues();
-                if ( $form->image->receive() )
-                {
-                    $locationFile = $form->image->getFileName();
-
-                    $nameFile = sha1( uniqid( rand(), true ) ).'.jpg';
-                    $fullPathNameFile = $model->getUploadPath() . $nameFile;
-
-                    $filterRename = new Zend_Filter_File_Rename( array(
-                        'target' => $fullPathNameFile,
-                        'overwrite' => true
-                    ) );
-                    $filterRename->filter( $locationFile );
-
-                    $formValues['image'] = $nameFile;
-                }
-
-                $model->save( $formValues );
+                $model->save( $model->getFormValues() );
 
                 $this->redirect( '' );
-            }
-            else
-            {
-                $form->populate( $postValues );
             }
         }
 
@@ -71,15 +50,11 @@ class NoteController extends My_Controller_Action_Abstract
         if ( $this->getRequest()->isPost() )
         {
             $postValues = $this->getRequest()->getPost();
-            if ( $form->isValid( $postValues ) )
+            if ( $model->validateForm( $form, $postValues ) )
             {
-                $model->save( $postValues );
+                $model->save( $model->getFormValues() );
 
                 $this->redirect( '' );
-            }
-            else
-            {
-                $form->populate( $postValues );
             }
         }
         else
@@ -115,15 +90,11 @@ class NoteController extends My_Controller_Action_Abstract
         if ( $this->getRequest()->isPost() )
         {
             $postValues = $this->getRequest()->getPost();
-            if ( $form->isValid( $postValues ) )
+            if ( $model->validateForm( $form, $postValues ) )
             {
-                $model->save( $postValues );
+                $model->save( $model->getFormValues() );
 
                 $this->redirect( '' );
-            }
-            else
-            {
-                $form->populate( $postValues );
             }
         }
 
@@ -143,15 +114,11 @@ class NoteController extends My_Controller_Action_Abstract
         if ( $this->getRequest()->isPost() )
         {
             $postValues = $this->getRequest()->getPost();
-            if ( $form->isValid( $postValues ) )
+            if ( $model->validateForm( $form, $postValues ) )
             {
-                $model->save( $postValues );
+                $model->save( $model->getFormValues() );
 
                 $this->redirect( '' );
-            }
-            else
-            {
-                $form->populate( $postValues );
             }
         }
         else
