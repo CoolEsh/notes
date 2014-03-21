@@ -28,7 +28,24 @@ class NoteController extends My_Controller_Action_Abstract
             $postValues = $this->getRequest()->getPost();
             if ( $form->isValid( $postValues ) )
             {
-                $model->save( $postValues );
+                $formValues = $form->getValues();
+                if ( $form->image->receive() )
+                {
+                    $locationFile = $form->image->getFileName();
+
+                    $nameFile = sha1( uniqid( rand(), true ) ).'.jpg';
+                    $fullPathNameFile = ROOT_PATH . $model->getUploadPath() . $nameFile;
+
+                    $filterRename = new Zend_Filter_File_Rename( array(
+                        'target' => $fullPathNameFile,
+                        'overwrite' => true
+                    ) );
+                    $filterRename->filter( $locationFile );
+
+                    $formValues['image'] = $nameFile;
+                }
+
+                $model->save( $formValues );
 
                 $this->redirect( '' );
             }
@@ -71,6 +88,20 @@ class NoteController extends My_Controller_Action_Abstract
         }
 
         $this->view->form = $form;
+    }
+
+    public function getTextImageAction()
+    {
+        $image = $this->getRequest()->getParam( 'image', 'no-image-available.jpg' );
+
+        if ( !empty( $image ) )
+        {
+            /** @var \Models\ReminderText $model */
+            $model = $this->getContainer()['modelRepository']->getReminderTextModel();
+            echo readfile( ROOT_PATH . $model->getUploadPath() . $image );
+        }
+
+        exit;
     }
 
     public function addTodoAction()
@@ -129,6 +160,20 @@ class NoteController extends My_Controller_Action_Abstract
         }
 
         $this->view->form = $form;
+    }
+
+    public function getTodoImageAction()
+    {
+        $image = $this->getRequest()->getParam( 'image', 'no-image-available.jpg' );
+
+        if ( !empty( $image ) )
+        {
+            /** @var \Models\ReminderTodo $model */
+            $model = $this->getContainer()['modelRepository']->getReminderTodoModel();
+            echo readfile( ROOT_PATH . $model->getUploadPath() . $image );
+        }
+
+        exit;
     }
 
     public function deleteAction()

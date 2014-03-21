@@ -10,9 +10,14 @@
         </h3>
     </div>
     <div class="panel-body">
-        {foreach from=$reminder->getContent() item=content}
-            {$content->getContent()}
-        {/foreach}
+        <div class="pull-left">
+            <img src="/note/get-text-image/{$reminder->getImage()}" width="50" height="50" />
+        </div>
+        <div class="pull-left" style="margin-left:15px;">
+            {foreach from=$reminder->getContent() item=content}
+                {$content->getContent()}
+            {/foreach}
+        </div>
     </div>
     <div class="panel-footer">
         {assign var=tags value=[]}

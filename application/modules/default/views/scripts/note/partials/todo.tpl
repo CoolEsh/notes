@@ -10,9 +10,14 @@
         </h3>
     </div>
     <div class="panel-body">
-        {foreach from=$reminder->getContent() item=todo}
-            <input type="checkbox" class="form-control" {if ( intval( $todo->getCompleted() ) === 1 )}checked="checked"{/if} disabled="disabled" style="display:inline; vertical-align:bottom; margin-bottom:2px; width:16px; height:16px;" />&nbsp;{$todo->getContent()}<br />
-        {/foreach}
+        <div class="pull-left">
+            <img src="/note/get-text-image/{$reminder->getImage()}" width="50" height="50" />
+        </div>
+        <div class="pull-left" style="margin-left:15px;">
+            {foreach from=$reminder->getContent() item=todo}
+                <input type="checkbox" class="form-control" {if ( intval( $todo->getCompleted() ) === 1 )}checked="checked"{/if} disabled="disabled" style="display:inline; vertical-align:bottom; margin-bottom:2px; width:16px; height:16px;" />&nbsp;{$todo->getContent()}<br />
+            {/foreach}
+        </div>
     </div>
     <div class="panel-footer">
         {assign var=tags value=[]}

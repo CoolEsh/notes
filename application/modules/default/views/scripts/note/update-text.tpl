@@ -14,7 +14,7 @@
         </div>
     {/if}
 
-    <form class="form-horizontal" action="" method="POST">
+    <form class="form-horizontal" action="" method="POST" enctype="multipart/form-data">
         {$form->getElement( 'id' )->render()}
         <div class="form-group">
             <label for="note-title" class="col-sm-2 control-label">Title</label>
@@ -26,6 +26,12 @@
             <label for="note-content" class="col-sm-2 control-label">Message</label>
             <div class="col-sm-10">
                 {$form->getElement( 'content' )->render()}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="note-content" class="col-sm-2 control-label">Image</label>
+            <div class="col-sm-10">
+                {$form->getElement( 'image' )->render()}
             </div>
         </div>
         <div class="form-group">

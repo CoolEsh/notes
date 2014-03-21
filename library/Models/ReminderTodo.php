@@ -4,6 +4,19 @@ namespace Models;
 
 class ReminderTodo extends ModelAbstract
 {
+    private $_tmpUploadPath = '/application/tmp/upload/';
+    private $_uploadPath = '/upload/';
+
+    public function getTmpUploadPath()
+    {
+        return $this->_tmpUploadPath;
+    }
+
+    public function getUploadPath()
+    {
+        return $this->_uploadPath;
+    }
+
     public function getForm( $reminderId = null )
     {
         $content = array();
@@ -68,6 +81,7 @@ class ReminderTodo extends ModelAbstract
         $reminderObj = new \Entities\Reminder();
         $reminderObj->setType( 'todo' );
         $reminderObj->setTitle( $data['title'] );
+        $reminderObj->setImage( $data['image'] );
 
         if ( !empty( $data['tags'] ) )
         {
@@ -112,6 +126,7 @@ class ReminderTodo extends ModelAbstract
 
         $reminderObj = $em->find( '\Entities\Reminder', $data['id'] );
         $reminderObj->setTitle( $data['title'] );
+        $reminderObj->setImage( $data['image'] );
 
         foreach ( $reminderObj->getTag() as $tagObj )
         {

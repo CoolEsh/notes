@@ -1,6 +1,6 @@
 <?php
 
-class Application_Form_TextNote extends Zend_Form
+class Application_Form_TextNote extends My_Form_Abstract
 {
 
     /**
@@ -10,6 +10,8 @@ class Application_Form_TextNote extends Zend_Form
      */
     public function init()
     {
+        parent::init();
+
         $elements = array();
 
         $this->getView()->headScript()->appendFile( '/js/tag-it.min.js' );
@@ -49,6 +51,26 @@ class Application_Form_TextNote extends Zend_Form
             ->addValidator( 'NotEmpty', true, array(
                 'messages'  => array(
                     Zend_Validate_NotEmpty::IS_EMPTY => 'Message is required'
+                )
+            ) )
+            ->removeDecorator( 'Label' )
+            ->removeDecorator('HtmlTag')
+            ->removeDecorator( 'Errors' );
+
+        $elements['image'] = new Zend_Form_Element_File( 'image' );
+        $elements['image']->addFilter( 'StripTags' )
+            ->setDestination( ROOT_PATH . $this->getContainer()['modelRepository']->getReminderTextModel()->getTmpUploadPath() )
+            ->setAttribs( array(
+                'id' => 'note-image'
+            ) )
+            ->setRequired( true )
+            ->setValueDisabled( true )
+            ->addValidator( 'Count', true, 1 )
+            ->addValidator( 'Size', true, 1024000 )
+            ->addValidator( 'Extension', true, array(
+                'extension' => 'jpg,png,gif',
+                'messages'  => array(
+                    Zend_Validate_File_Extension::FALSE_EXTENSION => 'Given image extension is not allowed'
                 )
             ) )
             ->removeDecorator( 'Label' )
