@@ -29,23 +29,25 @@ class ReminderTodo extends \Models\ReminderAbstract implements \Models\ReminderI
         );
 
         $reminder = $this->getReminderRepository()->find( $reminderId );
-        if ( !empty( $reminder ) )
+        if ( empty( $reminder ) )
         {
-            $populateArr['id'] = $reminder->getId();
-
-            $populateArr['title'] = $reminder->getTitle();
-
-            $populateArr['content'] = $reminder->getContent();
-
-            $tags = $reminder->getTag();
-            foreach ( $tags as $tag )
-            {
-                $populateArr['tags'][] = $tag->getName();
-            }
-            $populateArr['tags'] = implode( ',', $populateArr['tags'] );
-
-            $form->populate( $populateArr );
+            throw new \My_Exceptions_DbRecordNotExistsException( 'Given to-do note ID not exist!' );
         }
+
+        $populateArr['id'] = $reminder->getId();
+
+        $populateArr['title'] = $reminder->getTitle();
+
+        $populateArr['content'] = $reminder->getContent();
+
+        $tags = $reminder->getTag();
+        foreach ( $tags as $tag )
+        {
+            $populateArr['tags'][] = $tag->getName();
+        }
+        $populateArr['tags'] = implode( ',', $populateArr['tags'] );
+
+        $form->populate( $populateArr );
     }
 
     public function validateForm( &$form, $postValues )

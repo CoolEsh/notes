@@ -38,11 +38,13 @@ class Reminder extends ModelAbstract
         $em = $this->getEntityManager();
 
         $reminder = $this->getReminderRepository()->find( $id );
-        if ( !empty( $reminder ) )
+        if ( empty( $reminder ) )
         {
-            $em->remove( $reminder );
-            $em->flush();
+            throw new \My_Exceptions_DbRecordNotExistsException( 'Given note ID not exist!' );
         }
+
+        $em->remove( $reminder );
+        $em->flush();
     }
 
 }
