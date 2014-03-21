@@ -18,8 +18,6 @@ class ReminderText extends \Models\ReminderAbstract implements \Models\ReminderI
             'tags' => array()
         );
 
-        $em = $this->getEntityManager();
-
         $reminder = $this->getReminderRepository()->find( $reminderId );
 
         $populateArr['id'] = $reminder->getId();
