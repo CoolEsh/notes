@@ -4,7 +4,7 @@ namespace Models;
 
 use Zend_Filter_File_Rename;
 
-class ReminderAbstract extends ModelAbstract
+abstract class ReminderAbstract extends ModelAbstract
 {
     protected $_tmpUploadPath = '/application/tmp/upload/';
     protected $_uploadPath = '/upload/';
