@@ -26,15 +26,11 @@ class NoteController extends My_Controller_Action_Abstract
         if ( $this->getRequest()->isPost() )
         {
             $postValues = $this->getRequest()->getPost();
-            if ( $form->isValid( $postValues ) )
+            if ( $model->validateForm( $form, $postValues ) )
             {
-                $model->save( $postValues );
+                $model->save( $model->getFormValues() );
 
                 $this->redirect( '' );
-            }
-            else
-            {
-                $form->populate( $postValues );
             }
         }
 
@@ -54,15 +50,11 @@ class NoteController extends My_Controller_Action_Abstract
         if ( $this->getRequest()->isPost() )
         {
             $postValues = $this->getRequest()->getPost();
-            if ( $form->isValid( $postValues ) )
+            if ( $model->validateForm( $form, $postValues ) )
             {
-                $model->save( $postValues );
+                $model->save( $model->getFormValues() );
 
                 $this->redirect( '' );
-            }
-            else
-            {
-                $form->populate( $postValues );
             }
         }
         else
@@ -71,6 +63,20 @@ class NoteController extends My_Controller_Action_Abstract
         }
 
         $this->view->form = $form;
+    }
+
+    public function getTextImageAction()
+    {
+        $image = $this->getRequest()->getParam( 'image', 'no-image-available.jpg' );
+
+        if ( !empty( $image ) )
+        {
+            /** @var \Models\ReminderText $model */
+            $model = $this->getContainer()['modelRepository']->getReminderTextModel();
+            echo readfile( $model->getUploadPath() . $image );
+        }
+
+        exit;
     }
 
     public function addTodoAction()
@@ -84,15 +90,11 @@ class NoteController extends My_Controller_Action_Abstract
         if ( $this->getRequest()->isPost() )
         {
             $postValues = $this->getRequest()->getPost();
-            if ( $form->isValid( $postValues ) )
+            if ( $model->validateForm( $form, $postValues ) )
             {
-                $model->save( $postValues );
+                $model->save( $model->getFormValues() );
 
                 $this->redirect( '' );
-            }
-            else
-            {
-                $form->populate( $postValues );
             }
         }
 
@@ -116,15 +118,11 @@ class NoteController extends My_Controller_Action_Abstract
         if ( $this->getRequest()->isPost() )
         {
             $postValues = $this->getRequest()->getPost();
-            if ( $form->isValid( $postValues ) )
+            if ( $model->validateForm( $form, $postValues ) )
             {
-                $model->save( $postValues );
+                $model->save( $model->getFormValues() );
 
                 $this->redirect( '' );
-            }
-            else
-            {
-                $form->populate( $postValues );
             }
         }
         else
@@ -133,6 +131,20 @@ class NoteController extends My_Controller_Action_Abstract
         }
 
         $this->view->form = $form;
+    }
+
+    public function getTodoImageAction()
+    {
+        $image = $this->getRequest()->getParam( 'image', 'no-image-available.jpg' );
+
+        if ( !empty( $image ) )
+        {
+            /** @var \Models\ReminderTodo $model */
+            $model = $this->getContainer()['modelRepository']->getReminderTodoModel();
+            echo readfile( $model->getUploadPath() . $image );
+        }
+
+        exit;
     }
 
     public function deleteAction()
