@@ -2,7 +2,7 @@
 
 namespace Models;
 
-class ReminderTodo extends ModelAbstract
+class ReminderTodo extends \Models\ReminderAbstract implements \Models\ReminderInterface
 {
     public function getForm( $reminderId = null )
     {
@@ -28,8 +28,6 @@ class ReminderTodo extends ModelAbstract
             'tags' => array()
         );
 
-        $em = $this->getEntityManager();
-
         $reminder = $this->getReminderRepository()->find( $reminderId );
 
         $populateArr['id'] = $reminder->getId();
@@ -48,15 +46,23 @@ class ReminderTodo extends ModelAbstract
         $form->populate( $populateArr );
     }
 
-    public function save( $data )
+    public function validateForm( &$form, $postValues )
     {
-        if ( empty( $data['id'] ) )
+        if ( $form->isValid( $postValues ) )
         {
-            $this->_create( $data );
+            $this->_formValues = $postValues;
+            if ( $form->image->receive() )
+            {
+                $this->_formValues['image'] = $this->_renameFile( $form->image->getFileName() );
+            }
+
+            return true;
         }
         else
         {
-            $this->_update( $data );
+            $this->_formValues = $form->getValues();
+
+            return false;
         }
     }
 
@@ -68,6 +74,7 @@ class ReminderTodo extends ModelAbstract
         $reminderObj = new \Entities\Reminder();
         $reminderObj->setType( 'todo' );
         $reminderObj->setTitle( $data['title'] );
+        $reminderObj->setImage( $data['image'] );
 
         if ( !empty( $data['tags'] ) )
         {
@@ -112,6 +119,7 @@ class ReminderTodo extends ModelAbstract
 
         $reminderObj = $em->find( '\Entities\Reminder', $data['id'] );
         $reminderObj->setTitle( $data['title'] );
+        $reminderObj->setImage( $data['image'] );
 
         foreach ( $reminderObj->getTag() as $tagObj )
         {
