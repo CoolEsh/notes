@@ -34,7 +34,7 @@ class NoteController extends My_Controller_Action_Abstract
                     $locationFile = $form->image->getFileName();
 
                     $nameFile = sha1( uniqid( rand(), true ) ).'.jpg';
-                    $fullPathNameFile = ROOT_PATH . $model->getUploadPath() . $nameFile;
+                    $fullPathNameFile = $model->getUploadPath() . $nameFile;
 
                     $filterRename = new Zend_Filter_File_Rename( array(
                         'target' => $fullPathNameFile,
@@ -98,7 +98,7 @@ class NoteController extends My_Controller_Action_Abstract
         {
             /** @var \Models\ReminderText $model */
             $model = $this->getContainer()['modelRepository']->getReminderTextModel();
-            echo readfile( ROOT_PATH . $model->getUploadPath() . $image );
+            echo readfile( $model->getUploadPath() . $image );
         }
 
         exit;
@@ -170,7 +170,7 @@ class NoteController extends My_Controller_Action_Abstract
         {
             /** @var \Models\ReminderTodo $model */
             $model = $this->getContainer()['modelRepository']->getReminderTodoModel();
-            echo readfile( ROOT_PATH . $model->getUploadPath() . $image );
+            echo readfile( $model->getUploadPath() . $image );
         }
 
         exit;

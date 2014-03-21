@@ -59,7 +59,7 @@ class Application_Form_TextNote extends My_Form_Abstract
 
         $elements['image'] = new Zend_Form_Element_File( 'image' );
         $elements['image']->addFilter( 'StripTags' )
-            ->setDestination( ROOT_PATH . $this->getContainer()['modelRepository']->getReminderTextModel()->getTmpUploadPath() )
+            ->setDestination( $this->getContainer()['modelRepository']->getReminderTextModel()->getTmpUploadPath() )
             ->setAttribs( array(
                 'id' => 'note-image'
             ) )

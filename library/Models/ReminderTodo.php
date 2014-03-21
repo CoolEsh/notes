@@ -9,12 +9,12 @@ class ReminderTodo extends ModelAbstract
 
     public function getTmpUploadPath()
     {
-        return $this->_tmpUploadPath;
+        return ROOT_PATH . $this->_tmpUploadPath;
     }
 
     public function getUploadPath()
     {
-        return $this->_uploadPath;
+        return ROOT_PATH . $this->_uploadPath;
     }
 
     public function getForm( $reminderId = null )

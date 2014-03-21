@@ -42,7 +42,7 @@ class Application_Form_TodoNote extends My_Form_Abstract
 
         $elements['image'] = new Zend_Form_Element_File( 'image' );
         $elements['image']->addFilter( 'StripTags' )
-            ->setDestination( ROOT_PATH . $this->getContainer()['modelRepository']->getReminderTodoModel()->getTmpUploadPath() )
+            ->setDestination( $this->getContainer()['modelRepository']->getReminderTodoModel()->getTmpUploadPath() )
             ->setAttribs( array(
                 'id' => 'note-image'
             ) )
