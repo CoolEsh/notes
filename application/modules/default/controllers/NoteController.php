@@ -102,6 +102,10 @@ class NoteController extends My_Controller_Action_Abstract
     public function updateTodoAction()
     {
         $id = ( int )$this->getRequest()->getParam( 'noteId', 0 );
+        if ( empty( $id ) )
+        {
+            $this->redirect( '' );
+        }
 
         $this->view->headTitle( 'Edit to-do note' );
 
@@ -134,12 +138,10 @@ class NoteController extends My_Controller_Action_Abstract
     public function deleteAction()
     {
         $id = ( int )$this->getRequest()->getParam( 'noteId', 0 );
-        if( !empty( $id ) )
-        {
-            /** @var \Models\Reminder $model */
-            $model = $this->getContainer()['modelRepository']->getReminderModel();
-            $model->delete( $id );
-        }
+
+        /** @var \Models\Reminder $model */
+        $model = $this->getContainer()['modelRepository']->getReminderModel();
+        $model->delete( $id );
 
         $this->redirect( '' );
     }

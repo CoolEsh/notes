@@ -31,21 +31,23 @@ class ReminderTodo extends ModelAbstract
         $em = $this->getEntityManager();
 
         $reminder = $this->getReminderRepository()->find( $reminderId );
-
-        $populateArr['id'] = $reminder->getId();
-
-        $populateArr['title'] = $reminder->getTitle();
-
-        $populateArr['content'] = $reminder->getContent();
-
-        $tags = $reminder->getTag();
-        foreach ( $tags as $tag )
+        if ( !empty( $reminder ) )
         {
-            $populateArr['tags'][] = $tag->getName();
-        }
-        $populateArr['tags'] = implode( ',', $populateArr['tags'] );
+            $populateArr['id'] = $reminder->getId();
 
-        $form->populate( $populateArr );
+            $populateArr['title'] = $reminder->getTitle();
+
+            $populateArr['content'] = $reminder->getContent();
+
+            $tags = $reminder->getTag();
+            foreach ( $tags as $tag )
+            {
+                $populateArr['tags'][] = $tag->getName();
+            }
+            $populateArr['tags'] = implode( ',', $populateArr['tags'] );
+
+            $form->populate( $populateArr );
+        }
     }
 
     public function save( $data )
