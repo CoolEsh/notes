@@ -2,23 +2,8 @@
 
 namespace Models;
 
-use Zend_Filter_File_Rename;
-
-class ReminderTodo extends ModelAbstract
+class ReminderTodo extends \Models\ReminderAbstract implements \Models\ReminderInterface
 {
-    private $_tmpUploadPath = '/application/tmp/upload/';
-    private $_uploadPath = '/upload/';
-
-    public function getTmpUploadPath()
-    {
-        return ROOT_PATH . $this->_tmpUploadPath;
-    }
-
-    public function getUploadPath()
-    {
-        return ROOT_PATH . $this->_uploadPath;
-    }
-
     public function getForm( $reminderId = null )
     {
         $content = array();
@@ -80,37 +65,6 @@ class ReminderTodo extends ModelAbstract
             $this->_formValues = $form->getValues();
 
             return false;
-        }
-    }
-
-    public function getFormValues()
-    {
-        return $this->_formValues;
-    }
-
-    private function _renameFile( $locationFile )
-    {
-        $newFileName = sha1( uniqid( rand(), true ) ).'.jpg';
-        $fullPathFileName = $this->getUploadPath() . $newFileName;
-
-        $filterRename = new Zend_Filter_File_Rename( array(
-            'target' => $fullPathFileName,
-            'overwrite' => true
-        ) );
-        $filterRename->filter( $locationFile );
-
-        return $newFileName;
-    }
-
-    public function save( $data )
-    {
-        if ( empty( $data['id'] ) )
-        {
-            $this->_create( $data );
-        }
-        else
-        {
-            $this->_update( $data );
         }
     }
 
