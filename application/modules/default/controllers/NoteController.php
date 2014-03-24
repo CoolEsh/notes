@@ -5,10 +5,6 @@ class NoteController extends My_Controller_Action_Abstract
     public function indexAction()
     {
         $this->view->page = (int) $this->_getParam( 'page', 1 );
-        if ( $this->view->page < 1 )
-        {
-            throw new My_Exceptions_InvalidParameterException( 'Page is not defined properly' );
-        }
 
         $this->view->headTitle( 'Notes List' );
 

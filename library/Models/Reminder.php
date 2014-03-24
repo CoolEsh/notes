@@ -12,6 +12,11 @@ class Reminder extends ModelAbstract
      */
     public function getPageRecords( $currentPage )
     {
+        if ( $currentPage < 1 )
+        {
+            throw new \My_Exceptions_InvalidParameterException( 'Page is not defined properly' );
+        }
+
         $em = $this->getEntityManager();
 
         $dql = "SELECT reminder FROM \Entities\Reminder reminder";
