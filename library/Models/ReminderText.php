@@ -68,7 +68,7 @@ class ReminderText extends \Models\ReminderAbstract implements \Models\ReminderI
 
         $reminderObj = new \Entities\Reminder();
         $reminderObj->setType( 'text' );
-        $reminderObj->setTitle( $data['title'] );
+        $reminderObj->setTitle( $data['title'] );$reminder->getId();
         $reminderObj->setImage( $data['image'] );
 
         if ( !empty( $data['tags'] ) )

@@ -14,7 +14,7 @@ class Reminder extends ModelAbstract
     {
         if ( $currentPage < 1 )
         {
-            throw new \My_Exceptions_InvalidParameterException( 'Page is not defined properly' );
+            throw new \My_Exceptions_Reminder_WrongPageNumber();
         }
 
         $em = $this->getEntityManager();
@@ -45,7 +45,7 @@ class Reminder extends ModelAbstract
         $reminder = $this->getReminderRepository()->find( $id );
         if ( empty( $reminder ) )
         {
-            throw new \My_Exceptions_DbRecordNotExistsException( 'Given note ID not exist!' );
+            throw new \My_Exceptions_Reminder_RecordNotExist();
         }
 
         $em->remove( $reminder );
