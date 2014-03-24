@@ -29,6 +29,8 @@ class ErrorController extends Zend_Controller_Action
                 break;
         }
 
+        $this->view->application_env = APPLICATION_ENV;
+
         // pass the actual exception object to the view
         $this->view->exception = $errors->exception;
 
