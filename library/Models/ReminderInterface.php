@@ -4,6 +4,8 @@ namespace Models;
 
 interface ReminderInterface
 {
+    public function getImage( $image );
+
     public function getForm();
 
     public function populateForm( &$form, $reminderId );

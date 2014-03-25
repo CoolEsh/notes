@@ -9,6 +9,16 @@ class ReminderText extends \Models\ReminderAbstract implements \Models\ReminderI
         return new \Application_Form_TextNote();
     }
 
+    public function getImage( $image )
+    {
+        if ( !file_exists( $this->getUploadPath() . $image ) )
+        {
+            throw new \My_Exceptions_ReminderText_ImageNotExist();
+        }
+
+        return readfile( $this->getUploadPath() . $image );
+    }
+
     public function populateForm( &$form, $reminderId )
     {
         $populateArr = array(
