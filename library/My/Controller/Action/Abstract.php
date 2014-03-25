@@ -2,19 +2,22 @@
 
 abstract class My_Controller_Action_Abstract extends Zend_Controller_Action
 {
-    private $_container;
+    private static $_container;
 
-    public function init()
+    /**
+     * @param \Ext\Application\Resource\Container $container
+     */
+    public static function setContainer( $container )
     {
-        parent::init();
-
-        $bootstrap = $this->getInvokeArg( 'bootstrap' );
-        $this->_container = $bootstrap->getResource( 'container' );
+        self::$_container = $container;
     }
 
+    /**
+     * @return \Ext\Application\Resource\Container
+     */
     protected function getContainer()
     {
-        return $this->_container;
+        return self::$_container;
     }
 
 }

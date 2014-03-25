@@ -13,5 +13,4 @@ interface ReminderInterface
     public function validateForm( &$form, $postValues );
 
     public function save( $data );
-
 }

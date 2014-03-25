@@ -16,7 +16,6 @@ set_include_path( implode(PATH_SEPARATOR, array(
     get_include_path(),
 ) ) );
 
-// Create application, bootstrap, and run
 $application = new Zend_Application(
     APPLICATION_ENV,
     array(

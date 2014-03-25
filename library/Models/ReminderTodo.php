@@ -27,6 +27,11 @@ class ReminderTodo extends \Models\ReminderAbstract implements \Models\ReminderI
         return readfile( $this->getUploadPath() . $image );
     }
 
+    public function getImageUrl( $image )
+    {
+        return $this->getUploadPath() . $image;
+    }
+
     public function populateForm( &$form, $reminderId )
     {
         $populateArr = array(

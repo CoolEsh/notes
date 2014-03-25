@@ -11,14 +11,10 @@ define( 'LIB_PATH', ROOT_PATH . '/library' );
 
 require_once ROOT_PATH . "/vendor/autoload.php";
 
-// Ensure library/ is on include_path
-set_include_path( implode( PATH_SEPARATOR, array(
+set_include_path( implode(PATH_SEPARATOR, array(
     realpath( APPLICATION_PATH . '/../library' ),
-    get_include_path()
-)));
+    get_include_path(),
+) ) );
 
-/** Zend_Application */
 require_once 'Zend/Application.php';
 require_once 'ControllerTestCase.php';
-require_once 'DbTestCase.php';
-require_once 'XmlDataSet.php';
