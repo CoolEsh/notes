@@ -10,8 +10,6 @@ class ReminderTodo extends \Models\ReminderAbstract implements \Models\ReminderI
 
         if ( !empty( $reminderId ) )
         {
-            $em = $this->getEntityManager();
-
             $reminder = $this->getReminderRepository()->find( $reminderId );
             $content = $reminder->getContent();
         }
@@ -29,6 +27,10 @@ class ReminderTodo extends \Models\ReminderAbstract implements \Models\ReminderI
         );
 
         $reminder = $this->getReminderRepository()->find( $reminderId );
+        if ( empty( $reminder ) )
+        {
+            throw new \My_Exceptions_ReminderTodo_RecordNotExist();
+        }
 
         $populateArr['id'] = $reminder->getId();
 
@@ -69,6 +71,7 @@ class ReminderTodo extends \Models\ReminderAbstract implements \Models\ReminderI
     private function _create( $data )
     {
         $em = $this->getEntityManager();
+        /** @var \Models\Tag $tagModel */
         $tagModel = $this->getModelRepository()->getTagModel();
 
         $reminderObj = new \Entities\Reminder();
@@ -115,9 +118,15 @@ class ReminderTodo extends \Models\ReminderAbstract implements \Models\ReminderI
     private function _update( $data )
     {
         $em = $this->getEntityManager();
+        /** @var \Models\Tag $tagModel */
         $tagModel = $this->getModelRepository()->getTagModel();
 
         $reminderObj = $em->find( '\Entities\Reminder', $data['id'] );
+        if ( !empty( $reminderObj ) )
+        {
+            throw new \My_Exceptions_ReminderTodo_RecordNotExist();
+        }
+
         $reminderObj->setTitle( $data['title'] );
         $reminderObj->setImage( $data['image'] );
 

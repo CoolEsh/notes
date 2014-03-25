@@ -12,6 +12,11 @@ class Reminder extends ModelAbstract
      */
     public function getPageRecords( $currentPage )
     {
+        if ( $currentPage < 1 )
+        {
+            throw new \My_Exceptions_Reminder_WrongPageNumber();
+        }
+
         $em = $this->getEntityManager();
 
         $dql = "SELECT reminder FROM \Entities\Reminder reminder";
@@ -38,6 +43,10 @@ class Reminder extends ModelAbstract
         $em = $this->getEntityManager();
 
         $reminder = $this->getReminderRepository()->find( $id );
+        if ( empty( $reminder ) )
+        {
+            throw new \My_Exceptions_Reminder_RecordNotExist();
+        }
 
         $em->remove( $reminder );
         $em->flush();

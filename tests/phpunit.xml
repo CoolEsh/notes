@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpunit bootstrap="./application/Bootstrap.php"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         stopOnFailure="true"
+         syntaxCheck="true">
+
+    <testsuite name="Notes Test Suite">
+        <directory>./</directory>
+    </testsuite>
+
+    <filter>
+        <!-- смотрим лишь на следующие директории -->
+        <whitelist>
+            <directory suffix=".php">../application</directory>
+            <directory suffix=".php">../library</directory>
+            <exclude>
+                <directory suffix=".phtml">../application</directory>
+                <file>../application/Bootstrap.php</file>
+            </exclude>
+        </whitelist>
+    </filter>
+    <logging>
+        <!-- логирование и создание отчета -->
+        <log type="coverage-html" target="./report" charset="UTF-8" yui="true" highlight="true" lowUpperBound="35" highLowerBound="70"/>
+    </logging>
+</phpunit>

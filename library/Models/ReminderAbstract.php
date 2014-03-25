@@ -8,6 +8,7 @@ abstract class ReminderAbstract extends ModelAbstract
 {
     protected $_tmpUploadPath = '/application/tmp/upload/';
     protected $_uploadPath = '/upload/';
+    protected $_noImageAvailable = 'no-image-available.jpg';
 
     protected $_formValues;
 
@@ -38,6 +39,21 @@ abstract class ReminderAbstract extends ModelAbstract
         $filterRename->filter( $locationFile );
 
         return $newFileName;
+    }
+
+    public function getImage( $image )
+    {
+        if ( !file_exists( $this->getUploadPath() . $image ) )
+        {
+            throw new \My_Exceptions_ReminderText_ImageNotExist();
+        }
+
+        return readfile( $this->getUploadPath() . $image );
+    }
+
+    public function getNoImageAvailable()
+    {
+        return readfile( $this->getUploadPath() . $this->_noImageAvailable );
     }
 
     public function save( $data )

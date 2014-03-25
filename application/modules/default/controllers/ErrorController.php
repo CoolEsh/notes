@@ -34,5 +34,15 @@ class ErrorController extends Zend_Controller_Action
 
         // pass the request to the view
         $this->view->request = $errors->request;
+
+        switch ( APPLICATION_ENV )
+        {
+            case 'production':
+                $this->_helper->viewRenderer( 'production' );
+                break;
+            default:
+                $this->_helper->viewRenderer( 'common' );
+                break;
+        }
     }
 }

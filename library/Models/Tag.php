@@ -15,7 +15,7 @@ class Tag extends ModelAbstract
         $result = false;
 
         $tag = $this->getTagRepository()->findOneBy( array( 'name' => $tagName ) );
-        if ( $tag )
+        if ( !empty( $tag ) )
         {
             $this->_tag = $tag;
             $result = true;

@@ -67,14 +67,21 @@ class NoteController extends My_Controller_Action_Abstract
 
     public function getTextImageAction()
     {
-        $image = $this->getRequest()->getParam( 'image', 'no-image-available.jpg' );
+        $image = $this->getRequest()->getParam( 'image', null );
 
-        if ( !empty( $image ) )
+        /** @var \Models\ReminderText $model */
+        $model = $this->getContainer()['modelRepository']->getReminderTextModel();
+
+        try
         {
-            /** @var \Models\ReminderText $model */
-            $model = $this->getContainer()['modelRepository']->getReminderTextModel();
-            echo readfile( $model->getUploadPath() . $image );
+            $image = $model->getImage( $image );
         }
+        catch( \My_Exceptions_ReminderText_ImageNotExist $e )
+        {
+            $image = $model->getNoImageAvailable();
+        }
+
+        echo $image;
 
         exit;
     }
@@ -104,6 +111,10 @@ class NoteController extends My_Controller_Action_Abstract
     public function updateTodoAction()
     {
         $id = ( int )$this->getRequest()->getParam( 'noteId', 0 );
+        if ( empty( $id ) )
+        {
+            $this->redirect( '' );
+        }
 
         $this->view->headTitle( 'Edit to-do note' );
 
@@ -131,14 +142,21 @@ class NoteController extends My_Controller_Action_Abstract
 
     public function getTodoImageAction()
     {
-        $image = $this->getRequest()->getParam( 'image', 'no-image-available.jpg' );
+        $image = $this->getRequest()->getParam( 'image', null );
 
-        if ( !empty( $image ) )
+        /** @var \Models\ReminderTodo $model */
+        $model = $this->getContainer()['modelRepository']->getReminderTodoModel();
+
+        try
         {
-            /** @var \Models\ReminderTodo $model */
-            $model = $this->getContainer()['modelRepository']->getReminderTodoModel();
-            echo readfile( $model->getUploadPath() . $image );
+            $image = $model->getImage( $image );
         }
+        catch( \My_Exceptions_ReminderTodo_ImageNotExist $e )
+        {
+            $image = $model->getNoImageAvailable();
+        }
+
+        echo $image;
 
         exit;
     }
@@ -146,12 +164,10 @@ class NoteController extends My_Controller_Action_Abstract
     public function deleteAction()
     {
         $id = ( int )$this->getRequest()->getParam( 'noteId', 0 );
-        if( !empty( $id ) )
-        {
-            /** @var \Models\Reminder $model */
-            $model = $this->getContainer()['modelRepository']->getReminderModel();
-            $model->delete( $id );
-        }
+
+        /** @var \Models\Reminder $model */
+        $model = $this->getContainer()['modelRepository']->getReminderModel();
+        $model->delete( $id );
 
         $this->redirect( '' );
     }
