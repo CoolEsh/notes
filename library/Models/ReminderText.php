@@ -21,7 +21,7 @@ class ReminderText extends \Models\ReminderAbstract implements \Models\ReminderI
         $reminder = $this->getReminderRepository()->find( $reminderId );
         if ( empty( $reminder ) )
         {
-            throw new \My_Exceptions_DbRecordNotExistsException( 'Given text note ID not exist!' );
+            throw new \My_Exceptions_ReminderText_RecordNotExist();
         }
 
         $populateArr['id'] = $reminder->getId();
@@ -64,11 +64,12 @@ class ReminderText extends \Models\ReminderAbstract implements \Models\ReminderI
     public function _create( $data )
     {
         $em = $this->getEntityManager();
+        /** @var \Models\Tag $tagModel */
         $tagModel = $this->getModelRepository()->getTagModel();
 
         $reminderObj = new \Entities\Reminder();
         $reminderObj->setType( 'text' );
-        $reminderObj->setTitle( $data['title'] );$reminder->getId();
+        $reminderObj->setTitle( $data['title'] );
         $reminderObj->setImage( $data['image'] );
 
         if ( !empty( $data['tags'] ) )
@@ -103,9 +104,15 @@ class ReminderText extends \Models\ReminderAbstract implements \Models\ReminderI
     public function _update( $data )
     {
         $em = $this->getEntityManager();
+        /** @var \Models\Tag $tagModel */
         $tagModel = $this->getModelRepository()->getTagModel();
 
         $reminderObj = $em->find( '\Entities\Reminder', $data['id'] );
+        if ( empty( $reminderObj ) )
+        {
+            throw new \My_Exceptions_ReminderText_RecordNotExist();
+        }
+
         $reminderObj->setTitle( $data['title'] );
         $reminderObj->setImage( $data['image'] );
 
