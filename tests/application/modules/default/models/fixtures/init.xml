@@ -12,4 +12,12 @@
 
     </table>
 
+    <table name="reminder_text">
+
+        <column>id</column>
+        <column>reminder_id</column>
+        <column>content</column>
+
+    </table>
+
 </dataset>
