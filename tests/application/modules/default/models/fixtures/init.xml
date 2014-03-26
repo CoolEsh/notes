@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataset>
+
+    <table name="reminder">
+
+        <column>id</column>
+        <column>type</column>
+        <column>title</column>
+        <column>image</column>
+        <column>content</column>
+
+    </table>
+
+</dataset>

@@ -18,3 +18,9 @@ set_include_path( implode(PATH_SEPARATOR, array(
 
 require_once 'Zend/Application.php';
 require_once 'ControllerTestCase.php';
+require_once 'MySQLTruncate.php';
+require_once 'DbTestCase.php';
+require_once 'XmlDataSet.php';
+
+$classLoader = new \Doctrine\Common\ClassLoader( 'DoctrineExtensions', "/path/to/extensions" );
+$classLoader->register();

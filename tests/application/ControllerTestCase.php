@@ -1,7 +1,5 @@
 <?php
 
-use Doctrine\ORM\EntityManager;
-
 abstract class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase
 {
     private $_container;
