@@ -122,7 +122,7 @@ class ReminderText extends \Models\ReminderAbstract implements \Models\ReminderI
         /** @var \Models\Tag $tagModel */
         $tagModel = $this->getModelRepository()->getTagModel();
 
-        $reminderObj = $em->find( '\Entities\Reminder', $data['id'] );
+        $reminderObj = $this->getReminderRepository()->find( $data['id'] );
         if ( empty( $reminderObj ) )
         {
             throw new \My_Exceptions_ReminderText_RecordNotExist();
@@ -157,8 +157,8 @@ class ReminderText extends \Models\ReminderAbstract implements \Models\ReminderI
             }
         }
 
-        $reminderContent = $reminderObj->getContent();
-        $reminderTextObj = $reminderContent[ 0 ];
+        $reminderContent = $reminderObj->getTextContent();
+        $reminderTextObj = $reminderContent;
         $reminderTextObj->setContent( $data['content'] );
         $reminderTextObj->setReminder( $reminderObj );
 

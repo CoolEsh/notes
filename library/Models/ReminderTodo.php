@@ -136,8 +136,8 @@ class ReminderTodo extends \Models\ReminderAbstract implements \Models\ReminderI
         /** @var \Models\Tag $tagModel */
         $tagModel = $this->getModelRepository()->getTagModel();
 
-        $reminderObj = $em->find( '\Entities\Reminder', $data['id'] );
-        if ( !empty( $reminderObj ) )
+        $reminderObj = $this->getReminderRepository()->find( $data['id'] );
+        if ( empty( $reminderObj ) )
         {
             throw new \My_Exceptions_ReminderTodo_RecordNotExist();
         }
@@ -174,7 +174,7 @@ class ReminderTodo extends \Models\ReminderAbstract implements \Models\ReminderI
         $em->merge( $reminderObj );
         $em->flush();
 
-        $reminderContent = $reminderObj->getContent();
+        $reminderContent = $reminderObj->getTodoContent();
         foreach ( $reminderContent as $todoObj )
         {
             $em->remove( $todoObj );

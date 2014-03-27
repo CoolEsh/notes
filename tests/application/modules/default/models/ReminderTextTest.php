@@ -42,7 +42,8 @@ class ReminderTextTest extends DbTestCase
         ) );
 
         $vActual = new PHPUnit_Extensions_Database_DataSet_QueryDataSet( $this->getConnection() );
-        $vActual->addTable( $this->_tableName );
+        $vActual->addTable( 'reminder' );
+        $vActual->addTable( 'reminder_text' );
         $this->assertDataSetsEqual( $this->createXmlDataSet( $this->_filesDir . 'updateEndTextReminder.xml' ), $vActual );
     }
 
