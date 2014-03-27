@@ -12,8 +12,15 @@
         <row>
             <value>1</value>
             <value>todo</value>
-            <value>todo note title updated 2</value>
-            <value>1updated.jpg</value>
+            <value>to-do note title 1</value>
+            <value>1.jpg</value>
+        </row>
+
+        <row>
+            <value>3</value>
+            <value>todo</value>
+            <value>to-do note title 3</value>
+            <value>3.jpg</value>
         </row>
 
     </table>
@@ -26,24 +33,31 @@
         <column>completed</column>
 
         <row>
-            <value>4</value>
             <value>1</value>
-            <value>to-do note content updated 1</value>
+            <value>1</value>
+            <value>to-do note 1 content 1</value>
+            <value>1</value>
+        </row>
+
+        <row>
+            <value>2</value>
+            <value>1</value>
+            <value>to-do note 1 content 2</value>
             <value>0</value>
         </row>
 
         <row>
             <value>5</value>
-            <value>1</value>
-            <value>to-do note content updated 2</value>
+            <value>3</value>
+            <value>to-do note 3 content 1</value>
             <value>1</value>
         </row>
 
         <row>
             <value>6</value>
+            <value>3</value>
+            <value>to-do note 3 content 2</value>
             <value>1</value>
-            <value>to-do note content updated 3</value>
-            <value>0</value>
         </row>
 
     </table>
