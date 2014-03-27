@@ -27,4 +27,23 @@ class ReminderTextTest extends DbTestCase
         $this->assertDataSetsEqual( $vExpected, $vActual );
     }
 
+    public function testUpdateTextReminder()
+    {
+        $this->prepareInitData( $this->_filesDir . 'updateBeginTextReminder.xml' );
+
+        $vExpected = new XmlDataSet( $this->_filesDir . 'updateEndTextReminder.xml' );
+
+        $this->getContainer()['modelRepository']->getReminderTextModel()->save( array(
+            'id' => $vExpected->getValue( 'reminder', 0, 'id' ),
+            'type' => $vExpected->getValue( 'reminder', 0, 'type' ),
+            'title' => $vExpected->getValue( 'reminder', 0, 'title' ),
+            'image' => $vExpected->getValue( 'reminder', 0, 'image' ),
+            'content' => $vExpected->getValue( 'reminder_text', 0, 'content' )
+        ) );
+
+        $vActual = new PHPUnit_Extensions_Database_DataSet_QueryDataSet( $this->getConnection() );
+        $vActual->addTable( $this->_tableName );
+        $this->assertDataSetsEqual( $this->createXmlDataSet( $this->_filesDir . 'updateEndTextReminder.xml' ), $vActual );
+    }
+
 }

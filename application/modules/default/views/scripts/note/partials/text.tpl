@@ -14,9 +14,7 @@
             <img src="/note/get-text-image/{$reminder->getImage()}" width="50" height="50" />
         </div>
         <div class="pull-left" style="margin-left:15px;">
-            {foreach from=$reminder->getContent() item=content}
-                {$content->getContent()}
-            {/foreach}
+            {$reminder->getTextContent()->getContent()}
         </div>
     </div>
     <div class="panel-footer">

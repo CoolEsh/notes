@@ -11,23 +11,39 @@
 
         <row>
             <value>1</value>
-            <value>text</value>
+            <value>todo</value>
             <value>text note title 1</value>
             <value>1.jpg</value>
         </row>
 
     </table>
 
-    <table name="reminder_text">
+    <table name="reminder_todo">
 
         <column>id</column>
         <column>reminder_id</column>
         <column>content</column>
+        <column>completed</column>
 
         <row>
             <value>1</value>
             <value>1</value>
-            <value>text note content 1</value>
+            <value>to-do note content 1</value>
+            <value>1</value>
+        </row>
+
+        <row>
+            <value>2</value>
+            <value>1</value>
+            <value>to-do note content 2</value>
+            <value>0</value>
+        </row>
+
+        <row>
+            <value>3</value>
+            <value>1</value>
+            <value>to-do note content 3</value>
+            <value>1</value>
         </row>
 
     </table>

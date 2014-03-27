@@ -68,4 +68,10 @@ abstract class DbTestCase extends OrmTestCase
         return $this->createXmlDataSet( $vFileName );
     }
 
+    protected function prepareInitData( $pInitData )
+    {
+        $this->getDatabaseTester()->setDataSet( $this->getDataSet( $pInitData ) );
+        $this->getDatabaseTester()->onSetUp();
+    }
+
 }

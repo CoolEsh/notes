@@ -16,18 +16,11 @@
             <value>1.jpg</value>
         </row>
 
-    </table>
-
-    <table name="reminder_text">
-
-        <column>id</column>
-        <column>reminder_id</column>
-        <column>content</column>
-
         <row>
-            <value>1</value>
-            <value>1</value>
-            <value>text note content 1</value>
+            <value>2</value>
+            <value>todo</value>
+            <value>todo note title 1</value>
+            <value>2.jpg</value>
         </row>
 
     </table>
