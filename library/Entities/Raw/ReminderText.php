@@ -30,7 +30,7 @@ class ReminderText
     /**
      * @var \Entities\Reminder
      *
-     * @ORM\ManyToOne(targetEntity="Reminder",cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="\Entities\Reminder",cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="reminder_id", referencedColumnName="id")
      * })
