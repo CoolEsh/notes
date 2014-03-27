@@ -76,7 +76,7 @@ class ReminderText extends \Models\ReminderAbstract implements \Models\ReminderI
         }
     }
 
-    public function _create( $data )
+    protected function _create( $data )
     {
         $em = $this->getEntityManager();
         /** @var \Models\Tag $tagModel */
@@ -116,7 +116,7 @@ class ReminderText extends \Models\ReminderAbstract implements \Models\ReminderI
         $em->flush();
     }
 
-    public function _update( $data )
+    protected function _update( $data )
     {
         $em = $this->getEntityManager();
         /** @var \Models\Tag $tagModel */

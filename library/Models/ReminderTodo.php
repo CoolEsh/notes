@@ -83,7 +83,7 @@ class ReminderTodo extends \Models\ReminderAbstract implements \Models\ReminderI
         }
     }
 
-    private function _create( $data )
+    protected function _create( $data )
     {
         $em = $this->getEntityManager();
         /** @var \Models\Tag $tagModel */
@@ -130,7 +130,7 @@ class ReminderTodo extends \Models\ReminderAbstract implements \Models\ReminderI
         }
     }
 
-    private function _update( $data )
+    protected function _update( $data )
     {
         $em = $this->getEntityManager();
         /** @var \Models\Tag $tagModel */

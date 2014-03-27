@@ -12,11 +12,34 @@
 
     </table>
 
+    <table name="reminder_tag">
+
+        <column>reminder_id</column>
+        <column>tag_id</column>
+
+    </table>
+
     <table name="reminder_text">
 
         <column>id</column>
         <column>reminder_id</column>
         <column>content</column>
+
+    </table>
+
+    <table name="reminder_todo">
+
+        <column>id</column>
+        <column>reminder_id</column>
+        <column>content</column>
+        <column>completed</column>
+
+    </table>
+
+    <table name="tag">
+
+        <column>id</column>
+        <column>name</column>
 
     </table>
 

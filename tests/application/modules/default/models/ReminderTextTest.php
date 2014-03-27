@@ -4,7 +4,7 @@ class ReminderTextTest extends DbTestCase
 {
     public function __construct()
     {
-        $this->_modelClass = 'Reminder';
+        $this->_modelClass = 'ReminderText';
     }
 
     public function testAddTextReminder()
