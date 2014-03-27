@@ -1,79 +1,60 @@
 <?php
 
-use Doctrine\ORM\EntityManager;
+use DoctrineExtensions\PHPUnit\OrmTestCase;
 
-require_once 'Zend/Test/PHPUnit/DatabaseTestCase.php';
-
-abstract class DbTestCase extends Zend_Test_PHPUnit_DatabaseTestCase
+abstract class DbTestCase extends OrmTestCase
 {
-    protected $_container;
+    private $_container;
+    private $_em;
 
-    protected $_db;
-    protected $_model;
     protected $_modelClass;
 
     protected $_fixturesDir;
     protected $_filesDir;
     protected $_initDataSet;
 
-    private function _initDoctrine()
+    public function __construct()
     {
-        $appConfig = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini', APPLICATION_ENV );
-
-        $this->_container = new Pimple;
-
-        $doctrineConfig = $appConfig->resources->container;
-
-        $this->_container['entityManager'] = $this->_container->share( function () use ( $doctrineConfig ) {
-            $configuration = new \Doctrine\ORM\Configuration;
-
-            $configuration->setAutoGenerateProxyClasses( $doctrineConfig->autoGenerateProxyClasses );
-            $configuration->setProxyDir( $doctrineConfig->proxyPath );
-            $configuration->setProxyNamespace( $doctrineConfig->proxyNamespace );
-
-            $configuration->setMetadataDriverImpl(
-                $configuration->newDefaultAnnotationDriver( $doctrineConfig->entityPath, false )
-            );
-
-            return EntityManager::create( $doctrineConfig->connectionParameters->toArray(), $configuration );
-        } );
-
-        $this->_container['modelRepository'] = $this->_container->share( function () {
-            return new \Models\Repository;
-        } );
-
-        $this->_container['repositoryManager'] = $this->_container->share( function () {
-            return new \Models\RepositoryManager;
-        } );
+        parent::__construct();
     }
+
+    public function createEntityManager()
+    {
+        $this->application = new Zend_Application( APPLICATION_ENV, APPLICATION_PATH . '/configs/application.ini' );
+        $this->bootstrap = $this->application->bootstrap()->getBootstrap();
+
+        $this->_container = $this->bootstrap->getResource( 'container' );
+
+        $this->_fixturesDir = dirname(__FILE__) . '/modules/default/models/fixtures/';
+        $this->_filesDir    = $this->_fixturesDir . $this->_modelClass . '/';
+
+        $this->_em = $this->_container['entityManager'];
+        return $this->_em;
+    }
+
+    /**
+     * Overrides the parent method to add a custom MySQL truncate operation.
+     * This suspends foreign key checks for the duration of the truncate command.
+     * (non-PHPdoc)
+     * @see DoctrineExtensions\PHPUnit\DatabaseTestCase::getSetUpOperation()
+     */
+    public function getSetUpOperation()
+    {
+        $truncate = new MySQLTruncate();
+        return new PHPUnit_Extensions_Database_Operation_Composite( array(
+            $truncate,
+            PHPUnit_Extensions_Database_Operation_Factory::INSERT()
+        ) );
+    }
+
+    public function tearDown() {}
 
     public function getContainer()
     {
         return $this->_container;
     }
 
-    public function setUp()
-    {
-        $this->_fixturesDir = dirname(__FILE__) . '/models/fixtures/';
-        $this->_filesDir = $this->_fixturesDir . $this->_modelClass . '/';
-//        $this->_model = new $this->_modelClass( $this->getAdapter() );
-
-        $this->_initDoctrine();
-
-        parent::setUp();
-    }
-
-    protected function getTearDownOperation()
-    {
-        return PHPUnit_Extensions_Database_Operation_Factory::DELETE_ALL();
-    }
-
-    protected function getConnection()
-    {
-        return $this->getContainer()['entityManager'];
-    }
-
-    protected function getDataSet( $pFileName=null )
+    protected function getDataSet( $pFileName = null )
     {
         if ( $pFileName === null )
         {
@@ -83,6 +64,7 @@ abstract class DbTestCase extends Zend_Test_PHPUnit_DatabaseTestCase
         {
             $vFileName = $pFileName;
         }
+
         return $this->createXmlDataSet( $vFileName );
     }
 

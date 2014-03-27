@@ -6,15 +6,22 @@ use Zend_Controller_Front;
 
 class ModelAbstract
 {
+    private static $_container;
+
+    /**
+     * @param \Ext\Application\Resource\Container $container
+     */
+    public static function setContainer( $container )
+    {
+        self::$_container = $container;
+    }
+
     /**
      * @return \Ext\Application\Resource\Container
      */
     private function _getContainer()
     {
-        $front = Zend_Controller_Front::getInstance();
-
-        $bootstrap = $front->getParam( 'bootstrap' );
-        return $bootstrap->getResource( 'container' );
+        return self::$_container;
     }
 
     /**

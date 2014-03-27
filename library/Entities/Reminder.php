@@ -2,8 +2,7 @@
 
 namespace Entities;
 
-use Zend_Controller_Front,
-    Doctrine\ORM\Mapping as ORM,
+use Doctrine\ORM\Mapping as ORM,
     Entities\Raw;
 
 /**
@@ -15,32 +14,33 @@ use Zend_Controller_Front,
 class Reminder extends \Entities\Raw\Reminder
 {
     /**
-     * Get content
+     * @ORM\OneToOne(targetEntity="\Entities\ReminderText", mappedBy="reminder")
+     */
+    protected $textContent;
+
+    /**
+     * @ORM\OneToMany(targetEntity="\Entities\ReminderTodo", mappedBy="reminder")
+     **/
+    protected $todoContent;
+
+    /**
+     * Get text content
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getContent()
+    public function getTextContent()
     {
-        $front = Zend_Controller_Front::getInstance();
+        return $this->textContent;
+    }
 
-        $bootstrap = $front->getParam( 'bootstrap' );
-        $container = $bootstrap->getResource( 'container' );
-
-        $em = $container['entityManager'];
-
-        switch ( $this->getType() )
-        {
-            case 'text':
-                $query = $em->createQuery( 'SELECT reminderText FROM \Entities\ReminderText reminderText WHERE reminderText.reminder = ' . $this->getId() );
-                $content = $query->getResult();
-                break;
-            case 'todo':
-                $query = $em->createQuery( 'SELECT reminderTodo FROM \Entities\ReminderTodo reminderTodo WHERE reminderTodo.reminder = ' . $this->getId() );
-                $content = $query->getResult();
-                break;
-        }
-
-        return $content;
+    /**
+     * Get to-do content
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTodoContent()
+    {
+        return $this->todoContent;
     }
 
 }

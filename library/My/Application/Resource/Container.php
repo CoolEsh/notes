@@ -20,6 +20,9 @@ class My_Application_Resource_Container extends Zend_Application_Resource_Resour
         $containerResource = new \Ext\Application\Resource\Container( $this->getOptions(), new Pimple );
         $container = $containerResource->init();
 
+        My_Controller_Action_Abstract::setContainer( $container );
+        \Models\ModelAbstract::setContainer( $container );
+
         return $container;
     }
 

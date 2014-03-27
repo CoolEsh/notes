@@ -37,7 +37,7 @@ class ReminderTodo
     /**
      * @var \Entities\Reminder
      *
-     * @ORM\ManyToOne(targetEntity="Reminder")
+     * @ORM\ManyToOne(targetEntity="\Entities\Reminder")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="reminder_id", referencedColumnName="id")
      * })

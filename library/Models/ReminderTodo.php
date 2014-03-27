@@ -17,6 +17,21 @@ class ReminderTodo extends \Models\ReminderAbstract implements \Models\ReminderI
         return new \Application_Form_TodoNote( array( 'content' => $content ) );
     }
 
+    public function getImage( $image )
+    {
+        if ( !file_exists( $this->getUploadPath() . $image ) )
+        {
+            throw new \My_Exceptions_ReminderTodo_ImageNotExist();
+        }
+
+        return readfile( $this->getUploadPath() . $image );
+    }
+
+    public function getImageUrl( $image )
+    {
+        return $this->getUploadPath() . $image;
+    }
+
     public function populateForm( &$form, $reminderId )
     {
         $populateArr = array(
@@ -68,7 +83,7 @@ class ReminderTodo extends \Models\ReminderAbstract implements \Models\ReminderI
         }
     }
 
-    private function _create( $data )
+    protected function _create( $data )
     {
         $em = $this->getEntityManager();
         /** @var \Models\Tag $tagModel */
@@ -115,14 +130,14 @@ class ReminderTodo extends \Models\ReminderAbstract implements \Models\ReminderI
         }
     }
 
-    private function _update( $data )
+    protected function _update( $data )
     {
         $em = $this->getEntityManager();
         /** @var \Models\Tag $tagModel */
         $tagModel = $this->getModelRepository()->getTagModel();
 
-        $reminderObj = $em->find( '\Entities\Reminder', $data['id'] );
-        if ( !empty( $reminderObj ) )
+        $reminderObj = $this->getReminderRepository()->find( $data['id'] );
+        if ( empty( $reminderObj ) )
         {
             throw new \My_Exceptions_ReminderTodo_RecordNotExist();
         }
@@ -159,7 +174,7 @@ class ReminderTodo extends \Models\ReminderAbstract implements \Models\ReminderI
         $em->merge( $reminderObj );
         $em->flush();
 
-        $reminderContent = $reminderObj->getContent();
+        $reminderContent = $reminderObj->getTodoContent();
         foreach ( $reminderContent as $todoObj )
         {
             $em->remove( $todoObj );
@@ -176,4 +191,5 @@ class ReminderTodo extends \Models\ReminderAbstract implements \Models\ReminderI
             $em->flush();
         }
     }
+
 }

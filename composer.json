@@ -15,7 +15,8 @@
         "symfony/yaml": "2.3.*",
         "symfony/console": "2.3.*",
         "geometria-lab/rediska": ">=0.5.9",
-        "smarty/smarty": "v3.1.16"
+        "smarty/smarty": "v3.1.16",
+        "beberlei/DoctrineExtensions": "dev-master"
     },
     "require-dev" : {
         "phpunit/phpunit" : "3.7.*",

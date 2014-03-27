@@ -30,7 +30,7 @@ class Tag
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Reminder", mappedBy="tag")
+     * @ORM\ManyToMany(targetEntity="\Entities\Reminder", mappedBy="tag")
      */
     protected $reminder;
 

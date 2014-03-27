@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataset>
+
+    <table name="reminder">
+
+        <column>id</column>
+        <column>type</column>
+        <column>title</column>
+        <column>image</column>
+
+        <row>
+            <value>1</value>
+            <value>text</value>
+            <value>text note title updated 1</value>
+            <value>1updated.jpg</value>
+        </row>
+
+    </table>
+
+    <table name="reminder_text">
+
+        <column>id</column>
+        <column>reminder_id</column>
+        <column>content</column>
+
+        <row>
+            <value>1</value>
+            <value>1</value>
+            <value>text note content updated 1</value>
+        </row>
+
+    </table>
+
+</dataset>

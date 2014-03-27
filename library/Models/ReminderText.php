@@ -9,6 +9,21 @@ class ReminderText extends \Models\ReminderAbstract implements \Models\ReminderI
         return new \Application_Form_TextNote();
     }
 
+    public function getImage( $image )
+    {
+        if ( !file_exists( $this->getUploadPath() . $image ) )
+        {
+            throw new \My_Exceptions_ReminderText_ImageNotExist();
+        }
+
+        return readfile( $this->getUploadPath() . $image );
+    }
+
+    public function getImageUrl( $image )
+    {
+        return $this->getUploadPath() . $image;
+    }
+
     public function populateForm( &$form, $reminderId )
     {
         $populateArr = array(
@@ -61,7 +76,7 @@ class ReminderText extends \Models\ReminderAbstract implements \Models\ReminderI
         }
     }
 
-    public function _create( $data )
+    protected function _create( $data )
     {
         $em = $this->getEntityManager();
         /** @var \Models\Tag $tagModel */
@@ -101,13 +116,13 @@ class ReminderText extends \Models\ReminderAbstract implements \Models\ReminderI
         $em->flush();
     }
 
-    public function _update( $data )
+    protected function _update( $data )
     {
         $em = $this->getEntityManager();
         /** @var \Models\Tag $tagModel */
         $tagModel = $this->getModelRepository()->getTagModel();
 
-        $reminderObj = $em->find( '\Entities\Reminder', $data['id'] );
+        $reminderObj = $this->getReminderRepository()->find( $data['id'] );
         if ( empty( $reminderObj ) )
         {
             throw new \My_Exceptions_ReminderText_RecordNotExist();
@@ -142,12 +157,13 @@ class ReminderText extends \Models\ReminderAbstract implements \Models\ReminderI
             }
         }
 
-        $reminderContent = $reminderObj->getContent();
-        $reminderTextObj = $reminderContent[ 0 ];
+        $reminderContent = $reminderObj->getTextContent();
+        $reminderTextObj = $reminderContent;
         $reminderTextObj->setContent( $data['content'] );
         $reminderTextObj->setReminder( $reminderObj );
 
         $em->merge( $reminderTextObj );
         $em->flush();
     }
+
 }

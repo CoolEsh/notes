@@ -8,7 +8,7 @@ class XmlDataSet extends PHPUnit_Extensions_Database_DataSet_XmlDataSet
 
     public function __construct( $pXmlFile )
     {
-        $this->_dataSet = new PHPUnit_Extensions_Database_DataSet_XmlDataSet($pXmlFile );
+        $this->_dataSet = new PHPUnit_Extensions_Database_DataSet_XmlDataSet( $pXmlFile );
     }
 
     public function getValue( $pTableName, $pRowIndex, $pColumnName )
