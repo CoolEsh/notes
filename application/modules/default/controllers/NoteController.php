@@ -9,7 +9,7 @@ class NoteController extends My_Controller_Action_Abstract
         $this->view->headTitle( 'Notes List' );
 
         /** @var \Models\Reminder $model */
-        $model = $this->getContainer()['modelRepository']->getReminderModel();
+        $model = $this->getContainer()->getModelRepository()->getReminderModel();
         $paginator = $model->getPageRecords( $this->view->page );
 
         $this->view->remindersPaginator = $paginator;
@@ -20,7 +20,7 @@ class NoteController extends My_Controller_Action_Abstract
         $this->view->headTitle( 'Add text note' );
 
         /** @var \Models\ReminderText $model */
-        $model = $this->getContainer()['modelRepository']->getReminderTextModel();
+        $model = $this->getContainer()->getModelRepository()->getReminderTextModel();
         $form = $model->getForm();
 
         if ( $this->getRequest()->isPost() )
@@ -44,7 +44,7 @@ class NoteController extends My_Controller_Action_Abstract
         $this->view->headTitle( 'Edit text note' );
 
         /** @var \Models\ReminderText $model */
-        $model = $this->getContainer()['modelRepository']->getReminderTextModel();
+        $model = $this->getContainer()->getModelRepository()->getReminderTextModel();
         $form = $model->getForm();
 
         if ( $this->getRequest()->isPost() )
@@ -70,7 +70,7 @@ class NoteController extends My_Controller_Action_Abstract
         $image = $this->getRequest()->getParam( 'image', null );
 
         /** @var \Models\ReminderText $model */
-        $model = $this->getContainer()['modelRepository']->getReminderTextModel();
+        $model = $this->getContainer()->getModelRepository()->getReminderTextModel();
 
         try
         {
@@ -91,7 +91,7 @@ class NoteController extends My_Controller_Action_Abstract
         $this->view->headTitle( 'Add to-do note' );
 
         /** @var \Models\ReminderTodo $model */
-        $model = $this->getContainer()['modelRepository']->getReminderTodoModel();
+        $model = $this->getContainer()->getModelRepository()->getReminderTodoModel();
         $form = $model->getForm();
 
         if ( $this->getRequest()->isPost() )
@@ -119,7 +119,7 @@ class NoteController extends My_Controller_Action_Abstract
         $this->view->headTitle( 'Edit to-do note' );
 
         /** @var \Models\ReminderTodo $model */
-        $model = $this->getContainer()['modelRepository']->getReminderTodoModel();
+        $model = $this->getContainer()->getModelRepository()->getReminderTodoModel();
         $form = $model->getForm( $id );
 
         if ( $this->getRequest()->isPost() )
@@ -145,7 +145,7 @@ class NoteController extends My_Controller_Action_Abstract
         $image = $this->getRequest()->getParam( 'image', null );
 
         /** @var \Models\ReminderTodo $model */
-        $model = $this->getContainer()['modelRepository']->getReminderTodoModel();
+        $model = $this->getContainer()->getModelRepository()->getReminderTodoModel();
 
         try
         {
@@ -166,7 +166,7 @@ class NoteController extends My_Controller_Action_Abstract
         $id = ( int )$this->getRequest()->getParam( 'noteId', 0 );
 
         /** @var \Models\Reminder $model */
-        $model = $this->getContainer()['modelRepository']->getReminderModel();
+        $model = $this->getContainer()->getModelRepository()->getReminderModel();
         $model->delete( $id );
 
         $this->redirect( '' );

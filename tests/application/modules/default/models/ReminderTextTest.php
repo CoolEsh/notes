@@ -11,7 +11,7 @@ class ReminderTextTest extends DbTestCase
     {
         $vDataSet = new XmlDataSet( $this->_filesDir . 'addTextReminder.xml' );
 
-        $model = $this->getContainer()['modelRepository']->getReminderTextModel();
+        $model = $this->getContainer()->getModelRepository()->getReminderTextModel();
         $model->save( array(
             'type' => $vDataSet->getValue( 'reminder', 0, 'type' ),
             'title' => $vDataSet->getValue( 'reminder', 0, 'title' ),
@@ -33,7 +33,7 @@ class ReminderTextTest extends DbTestCase
 
         $vExpected = new XmlDataSet( $this->_filesDir . 'updateEndTextReminder.xml' );
 
-        $this->getContainer()['modelRepository']->getReminderTextModel()->save( array(
+        $this->getContainer()->getModelRepository()->getReminderTextModel()->save( array(
             'id' => $vExpected->getValue( 'reminder', 0, 'id' ),
             'type' => $vExpected->getValue( 'reminder', 0, 'type' ),
             'title' => $vExpected->getValue( 'reminder', 0, 'title' ),
@@ -52,7 +52,7 @@ class ReminderTextTest extends DbTestCase
         $this->prepareInitData( $this->_filesDir . 'deleteBeginTextReminder.xml' );
         $vExpected = new XmlDataSet( $this->_filesDir . 'deleteBeginTextReminder.xml' );
 
-        $this->getContainer()['modelRepository']->getReminderModel()->delete( $vExpected->getValue( 'reminder', 1, 'id' ) );
+        $this->getContainer()->getModelRepository()->getReminderModel()->delete( $vExpected->getValue( 'reminder', 1, 'id' ) );
 
         $vActual = new PHPUnit_Extensions_Database_DataSet_QueryDataSet( $this->getConnection() );
         $vActual->addTable( 'reminder' );

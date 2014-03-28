@@ -11,7 +11,7 @@ class ReminderTodoTest extends DbTestCase
     {
         $vDataSet = new XmlDataSet( $this->_filesDir . 'addTodoReminder.xml' );
 
-        $this->getContainer()['modelRepository']->getReminderTodoModel()->save( array(
+        $this->getContainer()->getModelRepository()->getReminderTodoModel()->save( array(
             'type' => $vDataSet->getValue( 'reminder', 0, 'type' ),
             'title' => $vDataSet->getValue( 'reminder', 0, 'title' ),
             'image' => $vDataSet->getValue( 'reminder', 0, 'image' ),
@@ -41,7 +41,7 @@ class ReminderTodoTest extends DbTestCase
 
         $vExpected = new XmlDataSet( $this->_filesDir . 'updateEndTodoReminder.xml' );
 
-        $this->getContainer()['modelRepository']->getReminderTodoModel()->save( array(
+        $this->getContainer()->getModelRepository()->getReminderTodoModel()->save( array(
             'id' => $vExpected->getValue( 'reminder', 0, 'id' ),
             'type' => $vExpected->getValue( 'reminder', 0, 'type' ),
             'title' => $vExpected->getValue( 'reminder', 0, 'title' ),
@@ -69,7 +69,7 @@ class ReminderTodoTest extends DbTestCase
         $this->prepareInitData( $this->_filesDir . 'deleteBeginTodoReminder.xml' );
         $vExpected = new XmlDataSet( $this->_filesDir . 'deleteBeginTodoReminder.xml' );
 
-        $this->getContainer()['modelRepository']->getReminderModel()->delete( $vExpected->getValue( 'reminder', 1, 'id' ) );
+        $this->getContainer()->getModelRepository()->getReminderModel()->delete( $vExpected->getValue( 'reminder', 1, 'id' ) );
 
         $vActual = new PHPUnit_Extensions_Database_DataSet_QueryDataSet( $this->getConnection() );
         $vActual->addTable( 'reminder' );

@@ -43,8 +43,8 @@ class ReminderText extends \Models\ReminderAbstract implements \Models\ReminderI
 
         $populateArr['title'] = $reminder->getTitle();
 
-        $content = $reminder->getContent();
-        $populateArr['content'] = $content[ 0 ]->getContent();
+        $content = $reminder->getTextContent();
+        $populateArr['content'] = $content->getContent();
 
         $tags = $reminder->getTag();
         foreach ( $tags as $tag )

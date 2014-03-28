@@ -28,7 +28,7 @@ abstract class DbTestCase extends OrmTestCase
         $this->_fixturesDir = dirname(__FILE__) . '/modules/default/models/fixtures/';
         $this->_filesDir    = $this->_fixturesDir . $this->_modelClass . '/';
 
-        $this->_em = $this->_container['entityManager'];
+        $this->_em = $this->_container->getEntityManager();
         return $this->_em;
     }
 

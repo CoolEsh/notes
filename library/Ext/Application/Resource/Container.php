@@ -9,20 +9,20 @@ class Container extends Zend_Application_Resource_ResourceAbstract
 {
     public $_explicitType = 'container';
 
-    protected $container;
+    protected $_container;
 
     public function __construct( $options = null, $container = null )
     {
         parent::__construct( $options );
 
-        $this->container = $container;
+        $this->_container = $container;
     }
 
     public function init()
     {
         $doctrineConfig = $this->getOptions();
 
-        $this->container['entityManager'] = $this->container->share( function () use ( $doctrineConfig ) {
+        $this->_container['entityManager'] = $this->_container->share( function () use ( $doctrineConfig ) {
             $configuration = new \Doctrine\ORM\Configuration;
 
             $configuration->setAutoGenerateProxyClasses( $doctrineConfig['autoGenerateProxyClasses'] );
@@ -36,11 +36,21 @@ class Container extends Zend_Application_Resource_ResourceAbstract
             return EntityManager::create( $doctrineConfig['connectionParameters'], $configuration );
         } );
 
-        $this->container['modelRepository'] = $this->container->share( function () {
+        $this->_container['modelRepository'] = $this->_container->share( function () {
             return new \Models\Repository;
         } );
 
-        return $this->container;
+        return $this;
+    }
+
+    public function getEntityManager()
+    {
+        return $this->_container['entityManager'];
+    }
+
+    public function getModelRepository()
+    {
+        return $this->_container['modelRepository'];
     }
 
 }

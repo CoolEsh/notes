@@ -29,9 +29,7 @@ class ModelAbstract
      */
     protected function getEntityManager()
     {
-        $container = $this->_getContainer();
-
-        return $container['entityManager'];
+        return $this->_getContainer()->getEntityManager();
     }
 
     /**
@@ -39,9 +37,7 @@ class ModelAbstract
      */
     protected function getModelRepository()
     {
-        $container = $this->_getContainer();
-
-        return $container['modelRepository'];
+        return $this->_getContainer()->getModelRepository();
     }
 
     /**

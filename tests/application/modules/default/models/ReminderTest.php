@@ -12,7 +12,7 @@ class ReminderTest extends DbTestCase
         $this->prepareInitData( $this->_filesDir . 'getReminder.xml' );
         $vExpected = new XmlDataSet( $this->_filesDir . 'getReminder.xml' );
 
-        $vActual = $this->getContainer()['modelRepository']->getReminderModel()->getReminderRepository()->find( $vExpected->getValue( 'reminder', 0, 'id' ) );
+        $vActual = $this->getContainer()->getModelRepository()->getReminderModel()->getReminderRepository()->find( $vExpected->getValue( 'reminder', 0, 'id' ) );
 
         $this->assertEquals( $vActual->getId(), $vExpected->getValue( 'reminder', 0,'id' ) );
         $this->assertEquals( $vActual->getType(), $vExpected->getValue( 'reminder', 0,'type' ) );

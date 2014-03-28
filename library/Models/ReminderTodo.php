@@ -11,7 +11,7 @@ class ReminderTodo extends \Models\ReminderAbstract implements \Models\ReminderI
         if ( !empty( $reminderId ) )
         {
             $reminder = $this->getReminderRepository()->find( $reminderId );
-            $content = $reminder->getContent();
+            $content = $reminder->getTodoContent();
         }
 
         return new \Application_Form_TodoNote( array( 'content' => $content ) );
@@ -51,7 +51,7 @@ class ReminderTodo extends \Models\ReminderAbstract implements \Models\ReminderI
 
         $populateArr['title'] = $reminder->getTitle();
 
-        $populateArr['content'] = $reminder->getContent();
+        $populateArr['content'] = $reminder->getTodoContent();
 
         $tags = $reminder->getTag();
         foreach ( $tags as $tag )
