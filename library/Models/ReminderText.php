@@ -6,7 +6,11 @@ class ReminderText extends \Models\ReminderAbstract implements \Models\ReminderI
 {
     public function getForm()
     {
-        return new \Application_Form_TextNote();
+        $form = new \Application_Form_TextNote();
+
+        $form->getElement( 'image' )->setDestination( $this->getTmpUploadPath() );
+
+        return $form;
     }
 
     public function getImage( $image )

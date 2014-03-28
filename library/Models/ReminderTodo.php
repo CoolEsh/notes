@@ -14,7 +14,11 @@ class ReminderTodo extends \Models\ReminderAbstract implements \Models\ReminderI
             $content = $reminder->getTodoContent();
         }
 
-        return new \Application_Form_TodoNote( array( 'content' => $content ) );
+        $form = new \Application_Form_TodoNote( array( 'content' => $content ) );
+
+        $form->getElement( 'image' )->setDestination( $this->getTmpUploadPath() );
+
+        return $form;
     }
 
     public function getImage( $image )
