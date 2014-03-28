@@ -65,7 +65,7 @@ class ReminderText extends \Models\ReminderAbstract implements \Models\ReminderI
         if ( $form->isValid( $postValues ) )
         {
             $this->_formValues = $postValues;
-            if ( $form->image->receive() )
+            if ( $form->image->receive() && $form->image->isUploaded() )
             {
                 $this->_formValues['image'] = $this->_renameFile( $form->image->getFileName() );
             }
@@ -133,7 +133,10 @@ class ReminderText extends \Models\ReminderAbstract implements \Models\ReminderI
         }
 
         $reminderObj->setTitle( $data['title'] );
-        $reminderObj->setImage( $data['image'] );
+        if ( !empty( $data['image'] ) )
+        {
+            $reminderObj->setImage( $data['image'] );
+        }
 
         foreach ( $reminderObj->getTag() as $tagObj )
         {

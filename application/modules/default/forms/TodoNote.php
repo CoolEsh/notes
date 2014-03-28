@@ -45,7 +45,7 @@ class Application_Form_TodoNote extends My_Form_Abstract
             ->setAttribs( array(
                 'id' => 'note-image'
             ) )
-            ->setRequired( true )
+            ->setRequired( false )
             ->setValueDisabled( true )
             ->addValidator( 'Count', true, 1 )
             ->addValidator( 'Size', true, 1024000 )

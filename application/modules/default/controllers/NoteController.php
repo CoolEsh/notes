@@ -67,7 +67,7 @@ class NoteController extends My_Controller_Action_Abstract
 
     public function getTextImageAction()
     {
-        $image = $this->getRequest()->getParam( 'image', null );
+        $image = $this->getRequest()->getParam( 'image', 0 );
 
         /** @var \Models\ReminderText $model */
         $model = $this->getContainer()->getModelRepository()->getReminderTextModel();
@@ -142,7 +142,7 @@ class NoteController extends My_Controller_Action_Abstract
 
     public function getTodoImageAction()
     {
-        $image = $this->getRequest()->getParam( 'image', null );
+        $image = $this->getRequest()->getParam( 'image', 0 );
 
         /** @var \Models\ReminderTodo $model */
         $model = $this->getContainer()->getModelRepository()->getReminderTodoModel();
